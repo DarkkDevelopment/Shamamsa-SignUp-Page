@@ -6,11 +6,14 @@ import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { getsneen } from "../services/lookups";
+import SecondStage from "./secondStage";
 
 function FirstStage(props: any) {
   const allMara7el = props.mara7el;
   const [sneen, setSneen] = useState([]);
   const [mar7ala, setMara7ala] = useState(0);
+  const [secondStage, setSecondStage] = useState(false);
+
   const mara7elOptionsFromDatabase = allMara7el.map((mara7el: any) => {
     return (
       <option key={mara7el.id} value={mara7el.id}>
@@ -61,120 +64,128 @@ function FirstStage(props: any) {
     setSneen(response);
   };
   // todo: this one will handle when user finished first stage and then show hime the second stage
-  const handleSubmitFirstStage = (e: any) => {};
+  const handleSubmitFirstStage = (e: any) => {
+    e.preventDefault();
+    setSecondStage(true);
+  };
   return (
-    <div className="flex flex-col justify-center space-y-2 align-middle">
-      <h2 className="mb-4 text-xl font-bold text-center ">
-        برجاء ادخال البيانات
-      </h2>
-      <label className="block text-sm font-medium text-right text-gray-700">
-        تاريخ الميلاد
-      </label>
-      <TextField
-        id="outlined-basic"
-        label="الاسم الاول"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-          fontSize: "1.2rem",
-        }}
-      />
-      <TextField
-        id="outlined-basic"
-        label="الاسم التاني"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-        }}
-      />
-      <TextField
-        id="outlined-basic"
-        label="الاسم التالت"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-        }}
-      />
-      <TextField
-        id="outlined-basic"
-        label="الاسم الرابع"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-          fontSize: "1.2rem",
-        }}
-      />
-      <label className="block text-sm font-medium text-right text-gray-700">
-        تاريخ الميلاد
-      </label>
-      <input
-        type="date"
-        style={{
-          width: "100%",
-          border: "1px solid #ccc",
-        }}
-      />
-      <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-        {genderOptions}
-      </select>
-      <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-        {ShamasOptions}
-      </select>
-      <select
-        value={mar7ala}
-        onChange={handleChangeMar7ala}
-        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-      >
-        {mara7elOptions}
-      </select>
-      <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-        {sneenOptions}
-      </select>
-      <TextField
-        id="outlined-basic"
-        label="الرقم القومي"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-          fontSize: "1.2rem",
-        }}
-      />
-      <label className="block text-sm font-medium text-right text-gray-700">
-        صورة الرقم القومي
-      </label>
-      <input
-        type="file"
-        style={{
-          width: "100%",
-          border: "1px solid #ccc",
-        }}
-      />
-      <label className="block text-sm font-medium text-right text-gray-700">
-        الصورة الشخصية
-      </label>
-      <input
-        type="file"
-        style={{
-          width: "100%",
-          border: "1px solid #ccc",
-        }}
-      />
-      <button
-        onClick={handleSubmitFirstStage}
-        className="w-full px-4 py-2 mt-16 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-      >
-        التالي
-      </button>
+    <div>
+      {!secondStage && (
+        <div className="flex flex-col justify-center space-y-2 align-middle">
+          <h2 className="mb-4 text-xl font-bold text-center ">
+            برجاء ادخال البيانات
+          </h2>
+          <label className="block text-sm font-medium text-right text-gray-700">
+            تاريخ الميلاد
+          </label>
+          <TextField
+            id="outlined-basic"
+            label="الاسم الاول"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+              fontSize: "1.2rem",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="الاسم التاني"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="الاسم التالت"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="الاسم الرابع"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+              fontSize: "1.2rem",
+            }}
+          />
+          <label className="block text-sm font-medium text-right text-gray-700">
+            تاريخ الميلاد
+          </label>
+          <input
+            type="date"
+            style={{
+              width: "100%",
+              border: "1px solid #ccc",
+            }}
+          />
+          <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+            {genderOptions}
+          </select>
+          <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+            {ShamasOptions}
+          </select>
+          <select
+            value={mar7ala}
+            onChange={handleChangeMar7ala}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            {mara7elOptions}
+          </select>
+          <select className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+            {sneenOptions}
+          </select>
+          <TextField
+            id="outlined-basic"
+            label="الرقم القومي"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+              fontSize: "1.2rem",
+            }}
+          />
+          <label className="block text-sm font-medium text-right text-gray-700">
+            صورة الرقم القومي
+          </label>
+          <input
+            type="file"
+            style={{
+              width: "100%",
+              border: "1px solid #ccc",
+            }}
+          />
+          <label className="block text-sm font-medium text-right text-gray-700">
+            الصورة الشخصية
+          </label>
+          <input
+            type="file"
+            style={{
+              width: "100%",
+              border: "1px solid #ccc",
+            }}
+          />
+          <button
+            onClick={handleSubmitFirstStage}
+            className="w-full px-4 py-2 mt-16 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+          >
+            التالي
+          </button>
+        </div>
+      )}
+      {secondStage && <SecondStage />}
     </div>
   );
 }
