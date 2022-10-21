@@ -6,8 +6,10 @@ import FirstStage from "../components/firstStage";
 import { SignUpModel } from "../models/signUpModel";
 import logoShamamsa from "../public/logo-deacon.jpg";
 import loginUser from "../services/login";
+import { getmara7el, getsneen } from "../services/lookups";
 
-const Home: NextPage = () => {
+const Home: NextPage = (props: any) => {
+  const allMara7el = props.mara7el;
   const [oldUser, setOldUser] = useState(false);
   const [signUpFlowNew, setSignUpFlowNew] = useState(false);
   const [signUpFlowOld, setSignUpFlowOld] = useState(false);
@@ -32,7 +34,9 @@ const Home: NextPage = () => {
     }
   };
   return (
-    <div className="container">
+    <div
+      className="flex flex-col items-center justify-center space-y-2 align-middle "
+    >
       {!selectOption && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
           <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
@@ -85,17 +89,26 @@ const Home: NextPage = () => {
       )}
       {signUpFlowOld && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <FirstStage old={true}></FirstStage>
+          <FirstStage mara7el={allMara7el} old={true}></FirstStage>
         </div>
       )}
 
       {signUpFlowNew && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <FirstStage old={false}></FirstStage>
+          <FirstStage mara7el={allMara7el} old={false}></FirstStage>
         </div>
       )}
     </div>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  const AllMara7el = await getmara7el();
+  return {
+    props: {
+      mara7el: AllMara7el,
+    },
+  };
+}
 
 export default Home;
