@@ -9,6 +9,7 @@ function FirstStage(props: any) {
   const allRotab = props.rotab;
   const allAsakfa = props.asakfa;
   const allChurch = props.church;
+  const allCountries = props.countries;
   const [sneen, setSneen] = useState([]);
   const [mar7ala, setMara7ala] = useState(0);
   const [secondStage, setSecondStage] = useState(false);
@@ -189,7 +190,7 @@ function FirstStage(props: any) {
       {secondStage && isShamas && (
         <SecondStage rotab={allRotab} asakfa={allAsakfa} churches={allChurch} />
       )}
-      {secondStage && !isShamas && <ThirdStage />}
+      {secondStage && !isShamas && <ThirdStage countries={allCountries} />}
     </div>
   );
 }

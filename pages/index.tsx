@@ -7,6 +7,7 @@ import { SignUpModel } from "../models/signUpModel";
 import logoShamamsa from "../public/logo-deacon.jpg";
 import loginUser from "../services/login";
 import {
+  getAllCountries,
   getAsakfaNames,
   getChurchNames,
   getmara7el,
@@ -18,6 +19,7 @@ const Home: NextPage = (props: any) => {
   const allRotab = props.rotab;
   const allAsakfa = props.asakfaNames;
   const allChurch = props.churchNames;
+  const allCountries = props.countries;
 
   const [oldUser, setOldUser] = useState(false);
   const [signUpFlowNew, setSignUpFlowNew] = useState(false);
@@ -107,6 +109,7 @@ const Home: NextPage = (props: any) => {
             mara7el={allMara7el}
             asakfa={allAsakfa}
             church={allChurch}
+            countries={allCountries}
             old={false}
           ></FirstStage>
         </div>
@@ -120,12 +123,14 @@ export async function getServerSideProps(context: any) {
   const AllRotab = await getRotab();
   const AllAsakfaNames = await getAsakfaNames();
   const AllChurchNames = await getChurchNames();
+  const AllCountries = await getAllCountries();
   return {
     props: {
       mara7el: AllMara7el,
       rotab: AllRotab,
       asakfaNames: AllAsakfaNames,
       churchNames: AllChurchNames,
+      countries: AllCountries,
     },
   };
 }
