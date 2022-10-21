@@ -1,18 +1,19 @@
-import { FormControl } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { getsneen } from "../services/lookups";
 import SecondStage from "./secondStage";
+import ThirdStage from "./thirdStage";
 
 function FirstStage(props: any) {
   const allMara7el = props.mara7el;
+  const allRotab = props.rotab;
+  const allAsakfa = props.asakfa;
+  const allChurch = props.church;
   const [sneen, setSneen] = useState([]);
   const [mar7ala, setMara7ala] = useState(0);
   const [secondStage, setSecondStage] = useState(false);
+  // todo: this to be changed
+  const [isShamas, setIsShamas] = useState(false);
 
   const mara7elOptionsFromDatabase = allMara7el.map((mara7el: any) => {
     return (
@@ -185,7 +186,10 @@ function FirstStage(props: any) {
           </button>
         </div>
       )}
-      {secondStage && <SecondStage />}
+      {secondStage && isShamas && (
+        <SecondStage rotab={allRotab} asakfa={allAsakfa} churches={allChurch} />
+      )}
+      {secondStage && !isShamas && <ThirdStage />}
     </div>
   );
 }

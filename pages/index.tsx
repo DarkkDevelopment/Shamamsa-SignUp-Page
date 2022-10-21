@@ -6,10 +6,19 @@ import FirstStage from "../components/firstStage";
 import { SignUpModel } from "../models/signUpModel";
 import logoShamamsa from "../public/logo-deacon.jpg";
 import loginUser from "../services/login";
-import { getmara7el, getsneen } from "../services/lookups";
+import {
+  getAsakfaNames,
+  getChurchNames,
+  getmara7el,
+  getRotab,
+} from "../services/lookups";
 
 const Home: NextPage = (props: any) => {
   const allMara7el = props.mara7el;
+  const allRotab = props.rotab;
+  const allAsakfa = props.asakfaNames;
+  const allChurch = props.churchNames;
+
   const [oldUser, setOldUser] = useState(false);
   const [signUpFlowNew, setSignUpFlowNew] = useState(false);
   const [signUpFlowOld, setSignUpFlowOld] = useState(false);
@@ -34,9 +43,7 @@ const Home: NextPage = (props: any) => {
     }
   };
   return (
-    <div
-      className="flex flex-col items-center justify-center space-y-2 align-middle "
-    >
+    <div className="flex flex-col items-center justify-center space-y-2 align-middle ">
       {!selectOption && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
           <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
@@ -95,7 +102,13 @@ const Home: NextPage = (props: any) => {
 
       {signUpFlowNew && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <FirstStage mara7el={allMara7el} old={false}></FirstStage>
+          <FirstStage
+            rotab={allRotab}
+            mara7el={allMara7el}
+            asakfa={allAsakfa}
+            church={allChurch}
+            old={false}
+          ></FirstStage>
         </div>
       )}
     </div>
@@ -104,9 +117,15 @@ const Home: NextPage = (props: any) => {
 
 export async function getServerSideProps(context: any) {
   const AllMara7el = await getmara7el();
+  const AllRotab = await getRotab();
+  const AllAsakfaNames = await getAsakfaNames();
+  const AllChurchNames = await getChurchNames();
   return {
     props: {
       mara7el: AllMara7el,
+      rotab: AllRotab,
+      asakfaNames: AllAsakfaNames,
+      churchNames: AllChurchNames,
     },
   };
 }
