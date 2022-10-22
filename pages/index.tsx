@@ -98,7 +98,14 @@ const Home: NextPage = (props: any) => {
       )}
       {signUpFlowOld && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <FirstStage mara7el={allMara7el} old={true}></FirstStage>
+          <FirstStage
+            rotab={allRotab}
+            mara7el={allMara7el}
+            asakfa={allAsakfa}
+            church={allChurch}
+            countries={allCountries}
+            old={true}
+          ></FirstStage>
         </div>
       )}
 
