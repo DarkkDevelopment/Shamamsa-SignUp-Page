@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import axios from '../utils/axios';
+import Swal from 'sweetalert2'
 type Props = {
 
 };
@@ -27,11 +28,13 @@ export const EmailStage = (props: Props) => {
         e.preventDefault();
         const response = await axios.post('/api/auth/emailOTP', { email });
         if (response.status === 200) {
-            setTime(10);
-            setTimeout(() => {
-                console.log('time is starting from ', time)
-                countDownInterval = setInterval(countDown, 1000);
-            }, 1000)
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: 'تم ارسال رمز التحقق الى بريدك الالكتروني',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
 
@@ -39,6 +42,14 @@ export const EmailStage = (props: Props) => {
         const response = await axios.post('/api/auth/verifyMailOTP', { otp, email });
         if (response.status === 200) {
             console.log(response.data)
+        } else {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: 'رمز التحقق غير صحيح',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
     return (
@@ -57,19 +68,10 @@ export const EmailStage = (props: Props) => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
-            {
-                time == 0 ? <Button variant="contained"
-                    sx={{ marginBottom: '1rem' }}
-                    onClick={handleVerifyEmail}
-                >ارسال</Button> : <div>
-                    <Button variant="contained"
-                        sx={{ marginBottom: '1rem' }}
-                        onClick={handleVerifyEmail}
-                        disabled
-                    >ارسال</Button>
-                    <div>الرجاء الانتظار {time} ثانية</div>
-                </div>
-            }
+            <Button variant="contained"
+                sx={{ marginBottom: '1rem' }}
+                onClick={handleVerifyEmail}
+            >ارسال</Button>
             <MuiOtpInput value={otp} onChange={handleChange} length={6} sx={
                 {
                     zoom: 0.9,

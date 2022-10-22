@@ -4,7 +4,7 @@ import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
-import { sizeWidth } from '@mui/system';
+import Swal from 'sweetalert2'
 type Props = {
 
 };
@@ -34,8 +34,14 @@ export const MobileStage = (props: Props) => {
     }
 
     const onSignInSubmit = () => {
+        if (!phoneNumber) {
+            Swal.fire({
+                icon: 'error',
+                text: 'برجاء ادخال رقم هاتفك',
+            })
+            return
+        }
         let number = `+2${phoneNumber}`;
-        console.log(number)
         // const appVerifier = window.recaptchaVerifier;
         let appVerifier = new RecaptchaVerifier('sign-in-button', {
             'size': 'invisible',
@@ -44,18 +50,25 @@ export const MobileStage = (props: Props) => {
                 onSignInSubmit();
             }
         }, auth);
-
         signInWithPhoneNumber(auth, number, appVerifier)
             .then((confirmationResult) => {
                 // SMS sent. Prompt user to type the code from the message, then sign the
                 // user in with confirmationResult.confirm(code).
                 setConfirmationResult(confirmationResult)
-                console.log(confirmationResult)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'تم ارسال رمز التحقق بنجاح',
+                    showConfirmButton: false,
+                })
                 // ...
             }).catch((error) => {
                 // Error; SMS not sent
                 // ...
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    text: 'حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل',
+                })
             });
     }
     return (
@@ -98,7 +111,7 @@ export const MobileStage = (props: Props) => {
                     }
 
                 }
-                
+
                 />
                 <div id='recaptcha-container'></div>
 
