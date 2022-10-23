@@ -57,17 +57,7 @@ const Home: NextPage = (props: any) => {
             }}
             className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
           >
-            كنت في مدرسة الشمامسة
-          </button>
-          <button
-            onClick={() => {
-              setSignUpFlowNew(true);
-              setOldUser(false);
-              setSelectOption(true);
-            }}
-            className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-          >
-            جديد في مدرسة الشمامسة
+            ادخال البيانات
           </button>
         </div>
       )}
@@ -105,20 +95,7 @@ const Home: NextPage = (props: any) => {
             church={allChurch}
             countries={allCountries}
             old={true}
-          ></FirstStage>
-        </div>
-      )}
-
-      {signUpFlowNew && (
-        <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <FirstStage
-            rotab={allRotab}
-            mara7el={allMara7el}
-            asakfa={allAsakfa}
-            church={allChurch}
-            countries={allCountries}
-            old={false}
-          ></FirstStage>
+          />
         </div>
       )}
     </div>

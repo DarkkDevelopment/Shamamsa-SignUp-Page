@@ -5,9 +5,11 @@ import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import axios from "../utils/axios";
 import Swal from "sweetalert2";
+import LastStage from "./lastStage";
 type Props = {};
 
 export const EmailStage = (props: Props) => {
+  const [lastStage, setLastStage] = useState(false);
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   let countDownInterval: NodeJS.Timer;
@@ -43,6 +45,7 @@ export const EmailStage = (props: Props) => {
     });
     if (response.status === 200) {
       console.log(response.data);
+      // todo: we should here send the post request with all the data
     } else {
       Swal.fire({
         position: "center",
@@ -55,52 +58,57 @@ export const EmailStage = (props: Props) => {
   };
   return (
     <div className="flex flex-col items-center justify-between">
-      <TextField
-        id="outlined-basic"
-        label="الايميل"
-        variant="outlined"
-        style={{
-          width: "100%",
-          textAlign: "right",
-          justifyContent: "flex-end",
-          fontSize: "1.2rem",
-          marginBottom: "1rem",
-        }}
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <Button
-        variant="contained"
-        sx={{ marginBottom: "1rem" }}
-        onClick={handleVerifyEmail}
-      >
-        ارسال
-      </Button>
-      <MuiOtpInput
-        value={otp}
-        onChange={handleChange}
-        length={6}
-        sx={{
-          zoom: 0.9,
-          width: "100%",
-          textAlign: "center",
-          justifyContent: "center",
-          marginBottom: "1rem",
-          "& input": {
-            fontSize: "0.8rem",
-            width: "0.5rem",
-            height: "0.5rem",
-          },
-        }}
-      />
-      <div id="recaptcha-container"></div>
-      <Button
-        variant="contained"
-        sx={{ marginBottom: "1rem" }}
-        onClick={handleVerifyOTP}
-      >
-        تأكيد
-      </Button>
+      {!lastStage && (
+        <>
+          <TextField
+            id="outlined-basic"
+            label="الايميل"
+            variant="outlined"
+            style={{
+              width: "100%",
+              textAlign: "right",
+              justifyContent: "flex-end",
+              fontSize: "1.2rem",
+              marginBottom: "1rem",
+            }}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <Button
+            variant="contained"
+            sx={{ marginBottom: "1rem" }}
+            onClick={handleVerifyEmail}
+          >
+            ارسال
+          </Button>
+          <MuiOtpInput
+            value={otp}
+            onChange={handleChange}
+            length={6}
+            sx={{
+              zoom: 0.9,
+              width: "100%",
+              textAlign: "center",
+              justifyContent: "center",
+              marginBottom: "1rem",
+              "& input": {
+                fontSize: "0.8rem",
+                width: "0.5rem",
+                height: "0.5rem",
+              },
+            }}
+          />
+          <div id="recaptcha-container"></div>
+          <Button
+            variant="contained"
+            sx={{ marginBottom: "1rem" }}
+            onClick={handleVerifyOTP}
+          >
+            تأكيد
+          </Button>
+        </>
+      )}
+      {lastStage && <LastStage />}
     </div>
   );
 };
