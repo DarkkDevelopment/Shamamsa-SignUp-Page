@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import { EmailStage } from "./EmailStage";
+import { SignUpModel } from "../models/signUpModel";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,10 +24,12 @@ const firebaseConfig = {
 
 export const MobileStage = (props: any) => {
   const [emailStage, setEmailStage] = useState(false);
+  const nationalImage = props.nationalImage;
+  const studentImage = props.studentImage;
   const app = initializeApp(firebaseConfig);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const user = props.user;
+  const ourUser: SignUpModel = props.user;
 
   const auth = getAuth();
   auth.languageCode = "ar";
@@ -139,6 +142,7 @@ export const MobileStage = (props: any) => {
                     // ...
                     console.log(user);
                     setEmailStage(true);
+                    ourUser.mobileNumber = phoneNumber;
                   })
                   .catch((error: any) => {
                     // User couldn't sign in (bad verification code?)
@@ -154,7 +158,11 @@ export const MobileStage = (props: any) => {
       )}
       {emailStage && (
         <div>
-          <EmailStage />
+          <EmailStage
+            nationalImage={nationalImage}
+            studentImage={studentImage}
+            user={ourUser}
+          />
         </div>
       )}
     </div>

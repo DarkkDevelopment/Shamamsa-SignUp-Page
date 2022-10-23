@@ -292,6 +292,8 @@ function FirstStage(props: any) {
           asakfa={allAsakfa}
           churches={allChurch}
           user={newUser}
+          nationalImage={nationalIdImage}
+          studentImage={studentImage}
         />
       )}
       {secondStage && isShamas === 2 && (
@@ -299,6 +301,8 @@ function FirstStage(props: any) {
           user={newUser}
           churches={allChurch}
           countries={allCountries}
+          nationalImage={nationalIdImage}
+          studentImage={studentImage}
         />
       )}
     </div>

@@ -8,6 +8,8 @@ function ThirdStage(props: any) {
   const AllCountries = props.countries;
   const AllChurches = props.churches;
   const user: SignUpModel = props.user;
+  const nationalImage = props.nationalImage;
+  const studentImage = props.studentImage;
   const [cities, setCities] = React.useState([]);
   const [manateq, setManateq] = React.useState([]);
   const [fourthStage, setFourthStage] = React.useState(false);
@@ -138,7 +140,12 @@ function ThirdStage(props: any) {
       )}
       {fourthStage && (
         <>
-          <FourthStage user={user} churches={AllChurches} />
+          <FourthStage
+            user={user}
+            churches={AllChurches}
+            nationalImage={nationalImage}
+            studentImage={studentImage}
+          />
         </>
       )}
     </div>

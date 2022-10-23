@@ -6,6 +6,8 @@ import { MobileStage } from "./mobileStage";
 function FourthStage(props: any) {
   const AllCountries = props.churches;
   const user: SignUpModel = props.user;
+  const nationalImage = props.nationalImage;
+  const studentImage = props.studentImage;
   const [mobileStage, setMobileStage] = React.useState(false);
   const [confessChurch, setConfessChurch] = React.useState(0);
   const [fatherconfessChurch, setFatherconfessChurch] = React.useState(0);
@@ -96,7 +98,11 @@ function FourthStage(props: any) {
       )}
       {mobileStage && (
         <>
-          <MobileStage user={user} />
+          <MobileStage
+            nationalImage={nationalImage}
+            studentImage={studentImage}
+            user={user}
+          />
         </>
       )}
     </div>

@@ -27,9 +27,6 @@ const Home: NextPage = (props: any) => {
   const [oldUserCode, setOldUserCode] = useState(0);
   const [oldUserPassword, setOldUserPassword] = useState("");
 
-  // todo: this here will use the signUp Model
-  //const [newUser, setNewUser] = useState<SignUpModel>({});
-
   // todo: this is the method for logging in the old user
   const handleOldLogin = async () => {
     const response = await loginUser(oldUserCode, oldUserPassword);

@@ -6,12 +6,16 @@ import { TextField } from "@mui/material";
 import axios from "../utils/axios";
 import Swal from "sweetalert2";
 import LastStage from "./lastStage";
-type Props = {};
+import { SignUpModel } from "../models/signUpModel";
+import signUp from "../services/signup";
 
-export const EmailStage = (props: Props) => {
+export const EmailStage = (props: any) => {
   const [lastStage, setLastStage] = useState(false);
+  const nationalImage = props.nationalImage;
+  const studentImage = props.studentImage;
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
+  const ourUser: SignUpModel = props.user;
   let countDownInterval: NodeJS.Timer;
   const [time, setTime] = useState(0);
   const handleChange = (newValue: string) => {
@@ -45,7 +49,12 @@ export const EmailStage = (props: Props) => {
     });
     if (response.status === 200) {
       console.log(response.data);
-      // todo: we should here send the post request with all the data
+      ourUser.email = email;
+      console.log(ourUser);
+      const res = await signUp(ourUser, nationalImage, studentImage);
+      if (res!.status === 200) {
+        setLastStage(true);
+      }
     } else {
       Swal.fire({
         position: "center",
