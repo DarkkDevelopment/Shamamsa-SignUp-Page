@@ -22,12 +22,10 @@ const Home: NextPage = (props: any) => {
   const allCountries = props.countries;
 
   const [oldUser, setOldUser] = useState(false);
-  const [signUpFlowNew, setSignUpFlowNew] = useState(false);
   const [signUpFlowOld, setSignUpFlowOld] = useState(false);
   const [selectOption, setSelectOption] = useState(false);
   const [oldUserCode, setOldUserCode] = useState(0);
   const [oldUserPassword, setOldUserPassword] = useState("");
-  const router = useRouter();
 
   // todo: this here will use the signUp Model
   //const [newUser, setNewUser] = useState<SignUpModel>({});
@@ -35,7 +33,7 @@ const Home: NextPage = (props: any) => {
   // todo: this is the method for logging in the old user
   const handleOldLogin = async () => {
     const response = await loginUser(oldUserCode, oldUserPassword);
-    if (response) {
+    if (response.status == 200) {
       console.log(response);
       setSignUpFlowOld(true);
       setOldUser(false);
@@ -52,7 +50,6 @@ const Home: NextPage = (props: any) => {
           <button
             onClick={() => {
               setOldUser(true);
-              setSignUpFlowNew(false);
               setSelectOption(true);
             }}
             className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
