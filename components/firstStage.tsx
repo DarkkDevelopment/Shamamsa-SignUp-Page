@@ -65,6 +65,9 @@ function FirstStage(props: any) {
   const [gender, setGender] = useState(0);
   const [mar7ala, setMara7ala] = useState(0);
   const [sana, setSana] = useState(0);
+  // todo: those are the two images to be sent
+  const [nationalIdImage, setNationalIdImage] = useState("");
+  const [studentImage, setStudentImage] = useState("");
 
   // todo : this is the options we used in the first stage
   const mara7elOptionsFromDatabase = allMara7el.map((mara7el: any) => {
@@ -120,7 +123,24 @@ function FirstStage(props: any) {
   // todo : this will also handle adding the data inserted into our model
   const handleSubmitFirstStage = (e: any) => {
     e.preventDefault();
-    setNewUser({ ...newUser, learningAndStatus: { mar7la: mar7ala, sana: 0 } });
+    setNewUser({
+      ...newUser,
+      fixedData: {
+        ...newUser.fixedData,
+        firstName: firstName,
+        secondName: secondName,
+        thirdName: thirdName,
+        fourthName: fourthName,
+        nationalId: nationalId,
+        dob: dateOfBirth,
+        gender: gender,
+      },
+      learningAndStatus: {
+        ...newUser.learningAndStatus,
+        mar7la: mar7ala,
+        sana: sana,
+      },
+    });
     setSecondStage(true);
   };
   return (
@@ -242,6 +262,8 @@ function FirstStage(props: any) {
               width: "100%",
               border: "1px solid #ccc",
             }}
+            value={nationalIdImage}
+            onChange={(e) => setNationalIdImage(e.target.value)}
           />
           <label className="block text-sm font-medium text-right text-gray-700">
             الصورة الشخصية
@@ -252,6 +274,8 @@ function FirstStage(props: any) {
               width: "100%",
               border: "1px solid #ccc",
             }}
+            value={studentImage}
+            onChange={(e) => setStudentImage(e.target.value)}
           />
           <button
             onClick={handleSubmitFirstStage}
@@ -267,10 +291,15 @@ function FirstStage(props: any) {
           rotab={allRotab}
           asakfa={allAsakfa}
           churches={allChurch}
+          user={newUser}
         />
       )}
       {secondStage && isShamas === 2 && (
-        <ThirdStage churches={allChurch} countries={allCountries} />
+        <ThirdStage
+          user={newUser}
+          churches={allChurch}
+          countries={allCountries}
+        />
       )}
     </div>
   );
