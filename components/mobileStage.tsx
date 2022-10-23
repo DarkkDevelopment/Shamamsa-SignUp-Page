@@ -10,7 +10,6 @@ import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import { EmailStage } from "./EmailStage";
-type Props = {};
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -22,11 +21,13 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-export const MobileStage = (props: Props) => {
+export const MobileStage = (props: any) => {
   const [emailStage, setEmailStage] = useState(false);
   const app = initializeApp(firebaseConfig);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const user = props.user;
+
   const auth = getAuth();
   auth.languageCode = "ar";
   const [otp, setOtp] = useState("");

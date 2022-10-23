@@ -1,13 +1,30 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import LastStage from "./lastStage";
+import { SignUpModel } from "../models/signUpModel";
 import { MobileStage } from "./mobileStage";
 
 function FourthStage(props: any) {
   const AllCountries = props.churches;
+  const user: SignUpModel = props.user;
   const [mobileStage, setMobileStage] = React.useState(false);
   const [confessChurch, setConfessChurch] = React.useState(0);
   const [fatherconfessChurch, setFatherconfessChurch] = React.useState(0);
+  const [confessName, setConfessName] = React.useState("");
+  const [confessMobile, setConfessMobile] = React.useState("");
+  const [fatherConfessName, setFatherConfessName] = React.useState("");
+  const [fatherConfessMobile, setFatherConfessMobile] = React.useState("");
+
+  const handleFourthStage = () => {
+    setMobileStage(true);
+    user.spirtualData = {
+      abE3trafName: confessName,
+      abE3trafMobile: confessMobile,
+      abE3trafChurchId: confessChurch,
+      abElosraName: fatherConfessName,
+      abElosraMobile: fatherConfessMobile,
+      abElosraChurchId: fatherconfessChurch,
+    };
+  };
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
       {!mobileStage && (
@@ -18,12 +35,16 @@ function FourthStage(props: any) {
             label="أب الاعتراف"
             variant="outlined"
             fullWidth
+            value={confessName}
+            onChange={(e) => setConfessName(e.target.value)}
           />
           <TextField
             id="outlined-basic"
             label="رقم موبايل أب الاعتراف"
             variant="outlined"
             fullWidth
+            value={confessMobile}
+            onChange={(e) => setConfessMobile(e.target.value)}
           />
           <select
             value={confessChurch}
@@ -42,12 +63,16 @@ function FourthStage(props: any) {
             label="أب اعتراف الأسرة"
             variant="outlined"
             fullWidth
+            value={fatherConfessName}
+            onChange={(e) => setFatherConfessName(e.target.value)}
           />
           <TextField
             id="outlined-basic"
             label="رقم موبايل أب اعتراف الأسرة"
             variant="outlined"
             fullWidth
+            value={fatherConfessMobile}
+            onChange={(e) => setFatherConfessMobile(e.target.value)}
           />
           <select
             value={fatherconfessChurch}
@@ -63,7 +88,7 @@ function FourthStage(props: any) {
           </select>
           <button
             className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-            onClick={() => setMobileStage(true)}
+            onClick={handleFourthStage}
           >
             التالي
           </button>
@@ -71,7 +96,7 @@ function FourthStage(props: any) {
       )}
       {mobileStage && (
         <>
-          <MobileStage />
+          <MobileStage user={user} />
         </>
       )}
     </div>

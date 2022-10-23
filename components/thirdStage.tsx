@@ -1,17 +1,23 @@
 import { TextField } from "@mui/material";
 import React from "react";
+import { SignUpModel } from "../models/signUpModel";
 import { getCitiesByCountryId, getManateqByCityId } from "../services/lookups";
 import FourthStage from "./fourthStage";
 
 function ThirdStage(props: any) {
   const AllCountries = props.countries;
   const AllChurches = props.churches;
-  const [country, setCountry] = React.useState(0);
-  const [city, setCity] = React.useState(0);
-  const [manteqa, setManteqa] = React.useState(0);
+  const user: SignUpModel = props.user;
   const [cities, setCities] = React.useState([]);
   const [manateq, setManateq] = React.useState([]);
   const [fourthStage, setFourthStage] = React.useState(false);
+  const [appartment, setAppartment] = React.useState(0);
+  const [building, setBuilding] = React.useState(0);
+  const [street, setStreet] = React.useState("");
+  const [country, setCountry] = React.useState(0);
+  const [city, setCity] = React.useState(0);
+  const [manteqa, setManteqa] = React.useState(0);
+  const [landMark, setLandMark] = React.useState("");
 
   // todo: this to handle when I change the country
   const handleCountryChange = async (event: any) => {
@@ -28,6 +34,20 @@ function ThirdStage(props: any) {
     setManateq(getManateq);
   };
 
+  // todo : this one will handle when I press next
+  const handleThirdStage = () => {
+    setFourthStage(true);
+    user.address = {
+      appartmentNumber: appartment,
+      buildingNumber: building,
+      streetName: street,
+      country: country,
+      mohafza: city,
+      manteqa: manteqa,
+      landmark: landMark,
+    };
+  };
+
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
       {!fourthStage && (
@@ -38,18 +58,24 @@ function ThirdStage(props: any) {
             label="رقم الشقة"
             variant="outlined"
             fullWidth
+            value={appartment}
+            onChange={(e) => setAppartment(Number(e.target.value))}
           />
           <TextField
             id="outlined-basic"
             label="رقم العمارة"
             variant="outlined"
             fullWidth
+            value={building}
+            onChange={(e) => setBuilding(Number(e.target.value))}
           />
           <TextField
             id="outlined-basic"
             label="الشارع "
             variant="outlined"
             fullWidth
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
           />
           <div className="flex flex-row space-x-8">
             <select
@@ -99,9 +125,11 @@ function ThirdStage(props: any) {
             label="أقرب علامة "
             variant="outlined"
             fullWidth
+            value={landMark}
+            onChange={(e) => setLandMark(e.target.value)}
           />
           <button
-            onClick={() => setFourthStage(true)}
+            onClick={handleThirdStage}
             className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             التالي
@@ -110,7 +138,7 @@ function ThirdStage(props: any) {
       )}
       {fourthStage && (
         <>
-          <FourthStage churches={AllChurches} />
+          <FourthStage user={user} churches={AllChurches} />
         </>
       )}
     </div>
