@@ -7,7 +7,7 @@ export type SignUpModel = {
   learningAndStatus: learningAndStatus;
   address: address;
   spirtualData: spirtualData;
-  ShammasData: ShammasData;
+  ShammasData?: ShammasData;
 };
 
 export type fixedData = {

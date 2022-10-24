@@ -41,12 +41,6 @@ function FirstStage(props: any) {
       abElosraMobile: "",
       abElosraName: "",
     },
-    ShammasData: {
-      studentRotbaShamasyalId: 0,
-      oskofElResamaId: 0,
-      resamaYear: 0,
-      studentResamaChuruchId: 0,
-    },
   });
   const allMara7el = props.mara7el;
   const allRotab = props.rotab;

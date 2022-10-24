@@ -14,7 +14,8 @@ const signUp = async (
       user,
     },
   });
-  if (response) {
+  console.log(response.data);
+  if (response.data.status) {
     const insertImages = await axios({
       method: "post",
       url: `/api/auth/uploadNationalId/${user.code}`,
