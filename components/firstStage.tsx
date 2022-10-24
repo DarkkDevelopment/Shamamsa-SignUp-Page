@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { SignUpModel } from "../models/signUpModel";
 import { getsneen } from "../services/lookups";
+import convertDate from "../utils/convertDate";
 import SecondStage from "./secondStage";
 import ThirdStage from "./thirdStage";
 
@@ -50,7 +51,7 @@ function FirstStage(props: any) {
   const [sneen, setSneen] = useState([]);
   const [secondStage, setSecondStage] = useState(false);
   const [isShamas, setIsShamas] = useState(2);
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState(convertDate(new Date()));
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [thirdName, setThirdName] = useState("");
@@ -204,7 +205,7 @@ function FirstStage(props: any) {
               border: "1px solid #ccc",
             }}
             value={dateOfBirth.toString()}
-            onChange={(e) => setDateOfBirth(new Date(e.target.value))}
+            onChange={(e) => setDateOfBirth(e.target.value)}
           />
           <select
             value={gender}

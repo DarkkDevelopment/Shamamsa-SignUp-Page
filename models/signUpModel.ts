@@ -16,7 +16,7 @@ export type fixedData = {
   secondName: string;
   thirdName: string;
   fourthName: string;
-  dob: Date;
+  dob: string | Date;
   gender: number;
 };
 
