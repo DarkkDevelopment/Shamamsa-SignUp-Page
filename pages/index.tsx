@@ -30,7 +30,7 @@ const Home: NextPage = (props: any) => {
   // todo: this is the method for logging in the old user
   const handleOldLogin = async () => {
     const response = await loginUser(oldUserCode, oldUserPassword);
-    if (response.status == 200) {
+    if (response.status) {
       console.log(response);
       setSignUpFlowOld(true);
       setOldUser(false);
