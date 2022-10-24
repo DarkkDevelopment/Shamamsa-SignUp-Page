@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    NEXT_PUBLIC_HOST: "https://3ukkwmknvr.us-east-1.awsapprunner.com/",
+    NEXT_PUBLIC_HOST: "https://app-dev.athanasiusdeacons.net/",
     NEXT_PUBLIC_FIREBASE_API_KEY: "AIzaSyAmlE3S_xARvOa64i8lgnhq-m5TljHppoo",
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: "shamamsaapp.firebaseapp.com",
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: "shamamsaapp",
