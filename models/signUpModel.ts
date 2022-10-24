@@ -26,13 +26,13 @@ export type learningAndStatus = {
 };
 
 export type address = {
-  appartmentNumber: number;
+  apartmentNumber: number;
   buildingNumber: number;
   streetName: string;
   mohafza: number;
   manteqa: number;
   country: number;
-  landmark: string;
+  landmark?: string;
 };
 
 export type spirtualData = {

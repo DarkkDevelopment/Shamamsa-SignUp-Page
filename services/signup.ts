@@ -14,19 +14,20 @@ const signUp = async (
       user,
     },
   });
-  console.log(response.data);
+  console.log(response);
+  return response
   if (response.data.status) {
-    const insertImages = await axios({
-      method: "post",
-      url: `/api/auth/uploadNationalId/${user.code}`,
-      data: {
-        nationalIdImage: nationalIdImage,
-        profileImage: profileImage,
-      },
-    });
-    if (insertImages) {
-      return response;
-    }
+    // const insertImages = await axios({
+    //   method: "post",
+    //   url: `/api/auth/uploadNationalId/${user.code}`,
+    //   data: {
+    //     nationalIdImage: nationalIdImage,
+    //     profileImage: profileImage,
+    //   },
+    // });
+    // if (insertImages) {
+    //   return response;
+    // }
   }
 };
 

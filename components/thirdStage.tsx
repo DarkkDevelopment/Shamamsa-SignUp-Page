@@ -23,24 +23,28 @@ function ThirdStage(props: any) {
 
   // todo: this to handle when I change the country
   const handleCountryChange = async (event: any) => {
-    setCountry(event.target.value);
+    setCountry(Number(event.target.value));
     const getCities = await getCitiesByCountryId(Number(event.target.value));
     const getManateq = await getManateqByCityId(Number(event.target.value));
     setManateq(getManateq);
     setCities(getCities);
+     //@ts-ignore
+     setManteqa(getManateq[0].manteqa_id);
   };
   // todo: this one will handle when I change city
   const handleCityChange = async (event: any) => {
-    setCity(event.target.value);
+    setCity(Number(event.target.value));
     const getManateq = await getManateqByCityId(Number(event.target.value));
     setManateq(getManateq);
+    //@ts-ignore
+    setManteqa(getManateq[0].manteqa_id);
   };
 
   // todo : this one will handle when I press next
   const handleThirdStage = () => {
     setFourthStage(true);
     user.address = {
-      appartmentNumber: appartment,
+      apartmentNumber: appartment,
       buildingNumber: building,
       streetName: street,
       country: country,
@@ -101,7 +105,7 @@ function ThirdStage(props: any) {
               className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               {cities.map((city: any) => (
-                <option key={city.mohafza_id} value={city.mohafza_id}>
+                <option key={city.mohafza_id} value={Number(city.mohafza_id)}>
                   {city.mohafza_name_arabic}
                 </option>
               ))}
@@ -110,7 +114,8 @@ function ThirdStage(props: any) {
           </div>
           <div className="flex flex-row space-x-8">
             <select
-              defaultValue={manteqa}
+              value={manteqa}
+              onChange={(e) => setManteqa(Number(e.target.value))}
               className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               {manateq.map((manateq: any) => (

@@ -26,7 +26,7 @@ function FirstStage(props: any) {
       sana: 0,
     },
     address: {
-      appartmentNumber: 0,
+      apartmentNumber: 0,
       buildingNumber: 0,
       streetName: "",
       mohafza: 0,
@@ -110,7 +110,7 @@ function FirstStage(props: any) {
   // todo: this one will handle when I change el mar7ala
   const handleChangeMar7ala = async (e: any) => {
     const mar7alaId = e.target.value;
-    setMara7ala(mar7alaId);
+    setMara7ala(Number(mar7alaId));
     const response = await getsneen(mar7alaId);
     setSneen(response);
   };
@@ -127,7 +127,7 @@ function FirstStage(props: any) {
         thirdName: thirdName,
         fourthName: fourthName,
         nationalId: nationalId,
-        dob: dateOfBirth,
+        dob: new Date(dateOfBirth),
         gender: gender,
       },
       learningAndStatus: {
