@@ -8,6 +8,7 @@ function FourthStage(props: any) {
   const user: SignUpModel = props.user;
   const nationalImage = props.nationalImage;
   const studentImage = props.studentImage;
+  const photos = props.photos;
   const [mobileStage, setMobileStage] = React.useState(false);
   const [confessChurch, setConfessChurch] = React.useState(0);
   const [fatherconfessChurch, setFatherconfessChurch] = React.useState(0);
@@ -102,6 +103,7 @@ function FourthStage(props: any) {
             nationalImage={nationalImage}
             studentImage={studentImage}
             user={user}
+            photos={photos}
           />
         </>
       )}

@@ -1,11 +1,7 @@
 import axios from "../utils/axios";
 import { SignUpModel } from "../models/signUpModel";
 
-const signUp = async (
-  user: SignUpModel,
-  nationalIdImage: string,
-  profileImage: string
-) => {
+const signUp = async (user: SignUpModel, data: FormData) => {
   // todo: this will handle creating a new user and another request for saving the files of their pictures
   const response = await axios({
     method: "post",
@@ -13,24 +9,24 @@ const signUp = async (
     headers: {
       "Content-Type": "application/json",
     },
-    data:
-      user
-    ,
+    data: user,
   });
   console.log(response);
-  return response
   if (response.data.status) {
-    // const insertImages = await axios({
-    //   method: "post",
-    //   url: `/api/auth/uploadNationalId/${user.code}`,
-    //   data: {
-    //     nationalIdImage: nationalIdImage,
-    //     profileImage: profileImage,
-    //   },
-    // });
-    // if (insertImages) {
-    //   return response;
-    // }
+    const insertImages = await axios({
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      url: `/api/auth/uploadNationalId/${user.code}`,
+      data: {
+        nationalIdImage: data.get("nationalIdImage"),
+        profileImage: data.get("profileImage"),
+      },
+    });
+    if (insertImages.status === 200) {
+      return insertImages.data;
+    }
   }
 };
 

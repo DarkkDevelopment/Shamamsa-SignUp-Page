@@ -10,6 +10,7 @@ function ThirdStage(props: any) {
   const user: SignUpModel = props.user;
   const nationalImage = props.nationalImage;
   const studentImage = props.studentImage;
+  const photos = props.photos;
   const [cities, setCities] = React.useState([]);
   const [manateq, setManateq] = React.useState([]);
   const [fourthStage, setFourthStage] = React.useState(false);
@@ -29,8 +30,8 @@ function ThirdStage(props: any) {
     setManateq(getManateq);
     setCities(getCities);
     setCity(Number(getCities[0].mohafza_id));
-     //@ts-ignore
-     setManteqa(getManateq[0].manteqa_id);
+    //@ts-ignore
+    setManteqa(getManateq[0].manteqa_id);
   };
   // todo: this one will handle when I change city
   const handleCityChange = async (event: any) => {
@@ -151,6 +152,7 @@ function ThirdStage(props: any) {
             churches={AllChurches}
             nationalImage={nationalImage}
             studentImage={studentImage}
+            photos={photos}
           />
         </>
       )}

@@ -2,7 +2,10 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { SignUpModel } from "../models/signUpModel";
 import { getsneen } from "../services/lookups";
+import { sendImages } from "../services/sendImages";
 import convertDate from "../utils/convertDate";
+import validateTextArabic from "../utils/vaildateArabic";
+import { validateNationalID } from "../utils/validateNationalID";
 import SecondStage from "./secondStage";
 import ThirdStage from "./thirdStage";
 
@@ -61,8 +64,9 @@ function FirstStage(props: any) {
   const [mar7ala, setMara7ala] = useState(0);
   const [sana, setSana] = useState(0);
   // todo: those are the two images to be sent
-  const [nationalIdImage, setNationalIdImage] = useState("");
-  const [studentImage, setStudentImage] = useState("");
+  const [nationalIdImage, setNationalIdImage] = useState<File | null>(null);
+  const [studentImage, setStudentImage] = useState<File | null>(null);
+  const [ourFormData, setOurFormData] = useState(new FormData());
 
   // todo : this is the options we used in the first stage
   const mara7elOptionsFromDatabase = allMara7el.map((mara7el: any) => {
@@ -116,8 +120,11 @@ function FirstStage(props: any) {
   };
   // todo: this one will handle when user finished first stage and then show hime the second stage
   // todo : this will also handle adding the data inserted into our model
-  const handleSubmitFirstStage = (e: any) => {
+  const handleSubmitFirstStage = async (e: any) => {
     e.preventDefault();
+    // todo : this one is to be done at the end of the flow
+    // const response = await sendImages(ourFormData, Number(newUser.code));
+    // todo original
     setNewUser({
       ...newUser,
       fixedData: {
@@ -138,6 +145,20 @@ function FirstStage(props: any) {
     });
     setSecondStage(true);
   };
+  const handleNationalImageChange = (e: any) => {
+    setNationalIdImage(e.target.files[0].name);
+    setOurFormData((prev) => {
+      prev.append("nationalIdImage", e.target.files[0]);
+      return prev;
+    });
+  };
+  const handleStudentImageChange = (e: any) => {
+    setStudentImage(e.target.files[0].name);
+    setOurFormData((prev) => {
+      prev.append("profileImage", e.target.files[0]);
+      return prev;
+    });
+  };
   return (
     <div>
       {!secondStage && (
@@ -157,6 +178,12 @@ function FirstStage(props: any) {
             }}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            error={firstName === "" || !validateTextArabic(firstName)}
+            helperText={
+              firstName === "" || !validateTextArabic(firstName)
+                ? "الاسم الاول مطلوب و باللغة العربية"
+                : ""
+            }
           />
           <TextField
             id="outlined-basic"
@@ -169,6 +196,12 @@ function FirstStage(props: any) {
             }}
             value={secondName}
             onChange={(e) => setSecondName(e.target.value)}
+            error={secondName === "" || !validateTextArabic(secondName)}
+            helperText={
+              secondName === "" || !validateTextArabic(secondName)
+                ? "الاسم التاني مطلوب و باللغة العربية"
+                : ""
+            }
           />
           <TextField
             id="outlined-basic"
@@ -181,6 +214,12 @@ function FirstStage(props: any) {
             }}
             value={thirdName}
             onChange={(e) => setThirdName(e.target.value)}
+            error={thirdName === "" || !validateTextArabic(thirdName)}
+            helperText={
+              thirdName === "" || !validateTextArabic(thirdName)
+                ? "الاسم التالت مطلوب و باللغة العربية"
+                : ""
+            }
           />
           <TextField
             id="outlined-basic"
@@ -194,18 +233,21 @@ function FirstStage(props: any) {
             }}
             value={fourthName}
             onChange={(e) => setFourthName(e.target.value)}
+            error={fourthName === "" || !validateTextArabic(fourthName)}
+            helperText={
+              fourthName === "" || !validateTextArabic(fourthName)
+                ? "الاسم الرابع مطلوب و باللغة العربية"
+                : ""
+            }
           />
           <label className="block text-sm font-medium text-right text-gray-700">
             تاريخ الميلاد
           </label>
-          <input
+          <TextField
             type="date"
-            style={{
-              width: "100%",
-              border: "1px solid #ccc",
-            }}
             value={dateOfBirth.toString()}
             onChange={(e) => setDateOfBirth(e.target.value)}
+            error={dateOfBirth === ""}
           />
           <select
             value={gender}
@@ -247,30 +289,23 @@ function FirstStage(props: any) {
             }}
             value={nationalId}
             onChange={(e) => setNationalId(e.target.value)}
+            error={nationalId === "" || !validateNationalID(nationalId)}
           />
           <label className="block text-sm font-medium text-right text-gray-700">
             صورة الرقم القومي
           </label>
-          <input
+          <TextField
             type="file"
-            style={{
-              width: "100%",
-              border: "1px solid #ccc",
-            }}
-            value={nationalIdImage}
-            onChange={(e) => setNationalIdImage(e.target.value)}
+            value={nationalIdImage ? nationalIdImage.name : ""}
+            onChange={handleNationalImageChange}
           />
           <label className="block text-sm font-medium text-right text-gray-700">
             الصورة الشخصية
           </label>
-          <input
+          <TextField
             type="file"
-            style={{
-              width: "100%",
-              border: "1px solid #ccc",
-            }}
-            value={studentImage}
-            onChange={(e) => setStudentImage(e.target.value)}
+            value={studentImage ? studentImage.name : ""}
+            onChange={handleStudentImageChange}
           />
           <button
             onClick={handleSubmitFirstStage}
@@ -289,6 +324,7 @@ function FirstStage(props: any) {
           user={newUser}
           nationalImage={nationalIdImage}
           studentImage={studentImage}
+          photos={ourFormData}
         />
       )}
       {secondStage && isShamas === 2 && (
@@ -298,6 +334,7 @@ function FirstStage(props: any) {
           countries={allCountries}
           nationalImage={nationalIdImage}
           studentImage={studentImage}
+          photos={ourFormData}
         />
       )}
     </div>

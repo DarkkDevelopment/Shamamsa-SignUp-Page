@@ -26,6 +26,7 @@ export const MobileStage = (props: any) => {
   const [emailStage, setEmailStage] = useState(false);
   const nationalImage = props.nationalImage;
   const studentImage = props.studentImage;
+  const photos = props.photos;
   const app = initializeApp(firebaseConfig);
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -162,6 +163,7 @@ export const MobileStage = (props: any) => {
             nationalImage={nationalImage}
             studentImage={studentImage}
             user={ourUser}
+            photos={photos}
           />
         </div>
       )}

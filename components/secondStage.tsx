@@ -1,5 +1,7 @@
+import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { SignUpModel } from "../models/signUpModel";
+import convertDate from "../utils/convertDate";
 import ThirdStage from "./thirdStage";
 
 function SecondStage(props: any) {
@@ -7,18 +9,19 @@ function SecondStage(props: any) {
   const allAsakfa = props.asakfa;
   const allChurch = props.churches;
   const allCountries = props.countries;
+  const images = props.photos;
   const user: SignUpModel = props.user;
   const [thirdStage, setThirdStage] = useState(false);
-  const [rotba, setRotba] = useState(0);
-  const [oskof, setOskof] = useState(0);
-  const [resamaYear, setResamaYear] = useState(new Date());
-  const [resamaChurch, setResamaChurch] = useState(0);
+  const [rotba, setRotba] = useState(props.rotab[0].id);
+  const [oskof, setOskof] = useState(props.asakfa[0].id);
+  const [resamaYear, setResamaYear] = useState(convertDate(new Date()));
+  const [resamaChurch, setResamaChurch] = useState(props.churches[0].id);
   const handleSecondStage = () => {
     setThirdStage(true);
     user.ShammasData = {
       studentRotbaShamasyalId: rotba,
       oskofElResamaId: oskof,
-      resamaYear: resamaYear.getFullYear(),
+      resamaYear: new Date(resamaYear).getFullYear(),
       studentResamaChuruchId: resamaChurch,
     };
   };
@@ -56,11 +59,11 @@ function SecondStage(props: any) {
             <label>اسم أسقف الرسامة</label>
           </div>
           <div className="flex flex-row space-x-8">
-            <input
+            <TextField
               className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               type="date"
               value={resamaYear.toString()}
-              onChange={(e) => setResamaYear(new Date(e.target.value))}
+              onChange={(e) => setResamaYear(e.target.value)}
             />
             <label>سنة الرسامة</label>
           </div>
@@ -87,7 +90,12 @@ function SecondStage(props: any) {
         </>
       )}
       {thirdStage && (
-        <ThirdStage user={user} churches={allChurch} countries={allCountries} />
+        <ThirdStage
+          user={user}
+          churches={allChurch}
+          countries={allCountries}
+          photos={images}
+        />
       )}
     </div>
   );

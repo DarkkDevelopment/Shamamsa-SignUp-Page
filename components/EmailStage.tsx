@@ -11,8 +11,7 @@ import signUp from "../services/signup";
 
 export const EmailStage = (props: any) => {
   const [lastStage, setLastStage] = useState(false);
-  const nationalImage = props.nationalImage;
-  const studentImage = props.studentImage;
+  const photos = props.photos;
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   const ourUser: SignUpModel = props.user;
@@ -51,7 +50,7 @@ export const EmailStage = (props: any) => {
       console.log(response.data);
       ourUser.email = email;
       console.log(ourUser);
-      const res = await signUp(ourUser, nationalImage, studentImage);
+      const res = await signUp(ourUser, photos);
       if (res!.status === 200) {
         setLastStage(true);
       }
