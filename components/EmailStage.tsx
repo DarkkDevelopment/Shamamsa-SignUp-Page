@@ -52,7 +52,7 @@ export const EmailStage = (props: any) => {
       console.log(ourUser);
       console.log(photos);
       const res = await signUp(ourUser, photos);
-      if (res.data.status === true) {
+      if (res.data.data.status === true) {
         setLastStage(true);
       }
     } else {
