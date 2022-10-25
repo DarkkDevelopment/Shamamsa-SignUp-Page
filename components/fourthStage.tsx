@@ -18,7 +18,7 @@ function FourthStage(props: any) {
 
   const handleFourthStage = () => {
     setMobileStage(true);
-    user.spirtualData = {
+    user.spritualData = {
       abE3trafName: confessName,
       abE3trafMobile: confessMobile,
       abE3trafChurchId: confessChurch,

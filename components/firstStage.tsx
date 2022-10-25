@@ -34,7 +34,7 @@ function FirstStage(props: any) {
       country: 0,
       landmark: "",
     },
-    spirtualData: {
+    spritualData: {
       abE3trafChurchId: 0,
       abE3trafMobile: "",
       abE3trafName: "",

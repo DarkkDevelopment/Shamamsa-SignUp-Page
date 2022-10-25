@@ -28,6 +28,7 @@ function ThirdStage(props: any) {
     const getManateq = await getManateqByCityId(Number(event.target.value));
     setManateq(getManateq);
     setCities(getCities);
+    setCity(Number(getCities[0].mohafza_id));
      //@ts-ignore
      setManteqa(getManateq[0].manteqa_id);
   };

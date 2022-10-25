@@ -10,9 +10,12 @@ const signUp = async (
   const response = await axios({
     method: "post",
     url: "/api/auth/signUp",
-    data: {
-      user,
+    headers: {
+      "Content-Type": "application/json",
     },
+    data:
+      user
+    ,
   });
   console.log(response);
   return response

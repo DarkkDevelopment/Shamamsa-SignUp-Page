@@ -6,7 +6,7 @@ export type SignUpModel = {
   fixedData: fixedData;
   learningAndStatus: learningAndStatus;
   address: address;
-  spirtualData: spirtualData;
+  spritualData: spirtualData;
   ShammasData?: ShammasData;
 };
 
