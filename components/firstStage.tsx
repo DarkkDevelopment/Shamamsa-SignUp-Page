@@ -2,7 +2,6 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { SignUpModel } from "../models/signUpModel";
 import { getsneen } from "../services/lookups";
-import { sendImages } from "../services/sendImages";
 import convertDate from "../utils/convertDate";
 import validateTextArabic from "../utils/vaildateArabic";
 import { validateNationalID } from "../utils/validateNationalID";
@@ -124,26 +123,40 @@ function FirstStage(props: any) {
     e.preventDefault();
     // todo : this one is to be done at the end of the flow
     // const response = await sendImages(ourFormData, Number(newUser.code));
-    // todo original
-    setNewUser({
-      ...newUser,
-      fixedData: {
-        ...newUser.fixedData,
-        firstName: firstName,
-        secondName: secondName,
-        thirdName: thirdName,
-        fourthName: fourthName,
-        nationalId: nationalId,
-        dob: new Date(dateOfBirth),
-        gender: gender,
-      },
-      learningAndStatus: {
-        ...newUser.learningAndStatus,
-        mar7la: mar7ala,
-        sana: sana,
-      },
-    });
-    setSecondStage(true);
+    if (
+      validateNationalID(nationalId) &&
+      validateTextArabic(firstName) &&
+      validateTextArabic(secondName) &&
+      validateTextArabic(thirdName) &&
+      validateTextArabic(fourthName) &&
+      nationalIdImage &&
+      studentImage &&
+      mar7ala !== 0 &&
+      sana !== 0 &&
+      gender !== 0
+    ) {
+      setNewUser({
+        ...newUser,
+        fixedData: {
+          ...newUser.fixedData,
+          firstName: firstName,
+          secondName: secondName,
+          thirdName: thirdName,
+          fourthName: fourthName,
+          nationalId: nationalId,
+          dob: new Date(dateOfBirth),
+          gender: gender,
+        },
+        learningAndStatus: {
+          ...newUser.learningAndStatus,
+          mar7la: mar7ala,
+          sana: sana,
+        },
+      });
+      setSecondStage(true);
+    } else {
+      alert("الرجاء التأكد من ادخال البيانات بشكل صحيح");
+    }
   };
   const handleNationalImageChange = (e: any) => {
     setNationalIdImage(e.target.files[0].name);
@@ -181,7 +194,7 @@ function FirstStage(props: any) {
             error={firstName === "" || !validateTextArabic(firstName)}
             helperText={
               firstName === "" || !validateTextArabic(firstName)
-                ? "الاسم الاول مطلوب و باللغة العربية"
+                ? "الاسم الاول مطلوب و يجب أن يكون باللغة العربية"
                 : ""
             }
           />
@@ -199,7 +212,7 @@ function FirstStage(props: any) {
             error={secondName === "" || !validateTextArabic(secondName)}
             helperText={
               secondName === "" || !validateTextArabic(secondName)
-                ? "الاسم التاني مطلوب و باللغة العربية"
+                ? "الاسم التاني مطلوب و  يجب أن يكون باللغة العربية"
                 : ""
             }
           />
@@ -217,7 +230,7 @@ function FirstStage(props: any) {
             error={thirdName === "" || !validateTextArabic(thirdName)}
             helperText={
               thirdName === "" || !validateTextArabic(thirdName)
-                ? "الاسم التالت مطلوب و باللغة العربية"
+                ? "الاسم التالت مطلوب و يجب أن يكون باللغة العربية"
                 : ""
             }
           />
@@ -236,7 +249,7 @@ function FirstStage(props: any) {
             error={fourthName === "" || !validateTextArabic(fourthName)}
             helperText={
               fourthName === "" || !validateTextArabic(fourthName)
-                ? "الاسم الرابع مطلوب و باللغة العربية"
+                ? "الاسم الرابع مطلوب و يجب أن يكون باللغة العربية"
                 : ""
             }
           />

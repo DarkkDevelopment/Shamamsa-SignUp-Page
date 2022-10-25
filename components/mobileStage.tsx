@@ -101,6 +101,7 @@ export const MobileStage = (props: any) => {
               }}
               onChange={(e) => setPhoneNumber(e.target.value)}
               value={phoneNumber}
+              error={phoneNumber.length < 10}
             />
             <Button
               variant="contained"

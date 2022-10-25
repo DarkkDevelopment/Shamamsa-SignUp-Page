@@ -17,13 +17,17 @@ function SecondStage(props: any) {
   const [resamaYear, setResamaYear] = useState(convertDate(new Date()));
   const [resamaChurch, setResamaChurch] = useState(props.churches[0].id);
   const handleSecondStage = () => {
-    setThirdStage(true);
-    user.ShammasData = {
-      studentRotbaShamasyalId: rotba,
-      oskofElResamaId: oskof,
-      resamaYear: new Date(resamaYear).getFullYear(),
-      studentResamaChuruchId: resamaChurch,
-    };
+    if (rotba && oskof && resamaYear && resamaChurch) {
+      setThirdStage(true);
+      user.ShammasData = {
+        studentRotbaShamasyalId: rotba,
+        oskofElResamaId: oskof,
+        resamaYear: new Date(resamaYear).getFullYear(),
+        studentResamaChuruchId: resamaChurch,
+      };
+    } else {
+      alert("برجاء ادخال جميع البيانات");
+    }
   };
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
@@ -64,6 +68,7 @@ function SecondStage(props: any) {
               type="date"
               value={resamaYear.toString()}
               onChange={(e) => setResamaYear(e.target.value)}
+              error={resamaYear === ""}
             />
             <label>سنة الرسامة</label>
           </div>

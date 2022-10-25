@@ -18,15 +18,26 @@ function FourthStage(props: any) {
   const [fatherConfessMobile, setFatherConfessMobile] = React.useState("");
 
   const handleFourthStage = () => {
-    setMobileStage(true);
-    user.spritualData = {
-      abE3trafName: confessName,
-      abE3trafMobile: confessMobile,
-      abE3trafChurchId: confessChurch,
-      abElosraName: fatherConfessName,
-      abElosraMobile: fatherConfessMobile,
-      abElosraChurchId: fatherconfessChurch,
-    };
+    if (
+      confessChurch == 0 ||
+      fatherconfessChurch == 0 ||
+      confessName == "" ||
+      confessMobile == "" ||
+      fatherConfessName == "" ||
+      fatherConfessMobile == ""
+    ) {
+      alert("من فضلك ادخل جميع البيانات");
+    } else {
+      setMobileStage(true);
+      user.spritualData = {
+        abE3trafName: confessName,
+        abE3trafMobile: confessMobile,
+        abE3trafChurchId: confessChurch,
+        abElosraName: fatherConfessName,
+        abElosraMobile: fatherConfessMobile,
+        abElosraChurchId: fatherconfessChurch,
+      };
+    }
   };
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
@@ -40,6 +51,7 @@ function FourthStage(props: any) {
             fullWidth
             value={confessName}
             onChange={(e) => setConfessName(e.target.value)}
+            error={confessName === ""}
           />
           <TextField
             id="outlined-basic"
@@ -48,6 +60,7 @@ function FourthStage(props: any) {
             fullWidth
             value={confessMobile}
             onChange={(e) => setConfessMobile(e.target.value)}
+            error={confessMobile === ""}
           />
           <select
             value={confessChurch}
@@ -68,6 +81,7 @@ function FourthStage(props: any) {
             fullWidth
             value={fatherConfessName}
             onChange={(e) => setFatherConfessName(e.target.value)}
+            error={fatherConfessName === ""}
           />
           <TextField
             id="outlined-basic"
@@ -76,6 +90,7 @@ function FourthStage(props: any) {
             fullWidth
             value={fatherConfessMobile}
             onChange={(e) => setFatherConfessMobile(e.target.value)}
+            error={fatherConfessMobile === ""}
           />
           <select
             value={fatherconfessChurch}

@@ -44,16 +44,28 @@ function ThirdStage(props: any) {
 
   // todo : this one will handle when I press next
   const handleThirdStage = () => {
-    setFourthStage(true);
-    user.address = {
-      apartmentNumber: appartment,
-      buildingNumber: building,
-      streetName: street,
-      country: country,
-      mohafza: city,
-      manteqa: manteqa,
-      landmark: landMark,
-    };
+    if (
+      appartment == 0 ||
+      building == 0 ||
+      street == "" ||
+      country == 0 ||
+      city == 0 ||
+      manteqa == 0 ||
+      landMark == ""
+    ) {
+      alert("من فضلك ادخل جميع البيانات");
+    } else {
+      setFourthStage(true);
+      user.address = {
+        apartmentNumber: appartment,
+        buildingNumber: building,
+        streetName: street,
+        country: country,
+        mohafza: city,
+        manteqa: manteqa,
+        landmark: landMark,
+      };
+    }
   };
 
   return (
@@ -68,6 +80,7 @@ function ThirdStage(props: any) {
             fullWidth
             value={appartment}
             onChange={(e) => setAppartment(Number(e.target.value))}
+            error={appartment === 0}
           />
           <TextField
             id="outlined-basic"
@@ -76,6 +89,7 @@ function ThirdStage(props: any) {
             fullWidth
             value={building}
             onChange={(e) => setBuilding(Number(e.target.value))}
+            error={building === 0}
           />
           <TextField
             id="outlined-basic"
@@ -84,6 +98,7 @@ function ThirdStage(props: any) {
             fullWidth
             value={street}
             onChange={(e) => setStreet(e.target.value)}
+            error={street === ""}
           />
           <div className="flex flex-row space-x-8">
             <select
@@ -136,6 +151,7 @@ function ThirdStage(props: any) {
             fullWidth
             value={landMark}
             onChange={(e) => setLandMark(e.target.value)}
+            error={landMark === ""}
           />
           <button
             onClick={handleThirdStage}
