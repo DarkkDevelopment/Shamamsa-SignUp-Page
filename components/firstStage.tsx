@@ -119,12 +119,11 @@ function FirstStage(props: any) {
     setSneen(response);
     setSana(response[0].id);
   };
+
   // todo: this one will handle when user finished first stage and then show hime the second stage
   // todo : this will also handle adding the data inserted into our model
   const handleSubmitFirstStage = async (e: any) => {
     e.preventDefault();
-    // todo : this one is to be done at the end of the flow
-    // const response = await sendImages(ourFormData, Number(newUser.code));
     if (
       validateNationalID(nationalId) &&
       validateTextArabic(firstName) &&
@@ -159,8 +158,7 @@ function FirstStage(props: any) {
           },
         });
         setSecondStage(true);
-      }
-      else {
+      } else {
         alert(response.message);
       }
     } else {

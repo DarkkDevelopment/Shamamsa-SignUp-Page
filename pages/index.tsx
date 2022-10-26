@@ -1,7 +1,9 @@
+import { Button, FormLabel, TextField } from "@mui/material";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import FirstStage from "../components/firstStage";
 import { SignUpModel } from "../models/signUpModel";
 import logoShamamsa from "../public/logo-deacon.jpg";
@@ -35,7 +37,13 @@ const Home: NextPage = (props: any) => {
       setSignUpFlowOld(true);
       setOldUser(false);
     } else {
-      alert("البيانات خطأ");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "برجاء ادخال البيانات بشكل صحيح",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setSignUpFlowOld(false);
     }
   };
@@ -58,26 +66,36 @@ const Home: NextPage = (props: any) => {
       {oldUser && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10 ">
           <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
-          <input
+          <FormLabel
+            component="legend"
+            style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+          >
+            برجاء ادخال الكود و كلمة السر
+          </FormLabel>
+          <TextField
             type="number"
             placeholder="الكود"
+            label="الكود"
             value={oldUserCode}
             onChange={(e) => setOldUserCode(Number(e.target.value))}
             className="px-4 py-2 text-right border border-gray-300 rounded"
           />
-          <input
+          <TextField
             type="password"
-            placeholder="كلمة السر"
+            label="كلمة المرور"
+            placeholder="ادخل كلمة المرور"
             value={oldUserPassword}
             onChange={(e) => setOldUserPassword(e.target.value)}
             className="px-4 py-2 text-right border border-gray-300 rounded"
           />
-          <button
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#003AAD", color: "white" }}
             onClick={handleOldLogin}
             className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
           >
             دخول
-          </button>
+          </Button>
         </div>
       )}
       {signUpFlowOld && (

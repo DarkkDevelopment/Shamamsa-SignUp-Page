@@ -94,19 +94,17 @@ export const EmailStage = (props: any) => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
-          {
-            !clicked && (
-              <>
-                <Button
-                  variant="contained"
-                  sx={{ marginBottom: "1rem" }}
-                  onClick={handleVerifyEmail}
-                >
-                  ارسال
-                </Button>
-              </>
-            )
-          }
+          {!clicked && (
+            <>
+              <Button
+                variant="contained"
+                sx={{ marginBottom: "1rem" }}
+                onClick={handleVerifyEmail}
+              >
+                ارسال
+              </Button>
+            </>
+          )}
           <MuiOtpInput
             value={otp}
             onChange={handleChange}
@@ -125,13 +123,13 @@ export const EmailStage = (props: any) => {
             }}
           />
           <div id="recaptcha-container"></div>
-          {
-            loading ? (
-              <div className="my-4">
-                <h2>برجاء الانتظار جاري ارسال البيانات</h2>
-                <CircularProgress />
-              </div>
-            ) : <>
+          {loading ? (
+            <div className="my-4">
+              <h2>برجاء الانتظار جاري ارسال البيانات</h2>
+              <CircularProgress />
+            </div>
+          ) : (
+            <>
               <Button
                 variant="contained"
                 sx={{ marginBottom: "1rem" }}
@@ -140,7 +138,7 @@ export const EmailStage = (props: any) => {
                 تأكيد
               </Button>
             </>
-          }
+          )}
         </>
       )}
       {lastStage && <LastStage />}

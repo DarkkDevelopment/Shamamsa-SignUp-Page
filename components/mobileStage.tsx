@@ -40,15 +40,6 @@ export const MobileStage = (props: any) => {
     setOtp(newValue);
   };
   let appVerifier: RecaptchaVerifier;
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    appVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-      },
-      auth
-    );
-  }, [auth])
 
   const onSignInSubmit = () => {
     if (!phoneNumber) {
@@ -59,6 +50,8 @@ export const MobileStage = (props: any) => {
       return;
     }
     let number = `+2${phoneNumber}`;
+    appVerifier = new RecaptchaVerifier("recaptcha-container", {}, auth);
+
     // const appVerifier = window.recaptchaVerifier;
 
     signInWithPhoneNumber(auth, number, appVerifier)
@@ -77,6 +70,7 @@ export const MobileStage = (props: any) => {
         // ...
       })
       .catch((error: any) => {
+        console.log(error.message);
         // Error; SMS not sent
         // ...
         Swal.fire({
@@ -107,20 +101,18 @@ export const MobileStage = (props: any) => {
             />
             <div id="recaptcha-container" className="my-4"></div>
 
-            {
-              !clicked && (
-                <>
-                  <Button
-                    variant="contained"
-                    id="sign-in-button"
-                    onClick={onSignInSubmit}
-                    sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
-                  >
-                    ارسال رمز التحقق
-                  </Button>
-                </>
-              )
-            }
+            {!clicked && (
+              <>
+                <Button
+                  variant="contained"
+                  id="sign-in-button"
+                  onClick={onSignInSubmit}
+                  sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
+                >
+                  ارسال رمز التحقق
+                </Button>
+              </>
+            )}
           </div>
           <div className="flex flex-col items-center justify-between">
             <MuiOtpInput
@@ -140,7 +132,6 @@ export const MobileStage = (props: any) => {
                 },
               }}
             />
-
 
             <Button
               variant="contained"
