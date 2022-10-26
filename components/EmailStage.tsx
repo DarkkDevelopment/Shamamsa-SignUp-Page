@@ -127,10 +127,10 @@ export const EmailStage = (props: any) => {
           <div id="recaptcha-container"></div>
           {
             loading ? (
-              <>
+              <div className="my-4">
                 <h2>برجاء الانتظار جاري ارسال البيانات</h2>
                 <CircularProgress />
-              </>
+              </div>
             ) : <>
               <Button
                 variant="contained"

@@ -105,7 +105,7 @@ export const MobileStage = (props: any) => {
               value={phoneNumber}
               error={phoneNumber.length < 10}
             />
-        <div id="recaptcha-container" className="my-4"></div>
+            <div id="recaptcha-container" className="my-4"></div>
 
             {
               !clicked && (
