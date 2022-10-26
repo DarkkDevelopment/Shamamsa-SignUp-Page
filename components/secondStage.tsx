@@ -54,11 +54,14 @@ function SecondStage(props: any) {
   };
 
   return (
-    <div className="flex flex-col justify-center space-y-10 align-middle">
+    <div className="flex flex-col p-4 space-y-8 ">
       {!thirdStage && (
         <>
-          <h1 className="text-2xl text-center">برجاء ادخال بيانات اخر رسامة</h1>
-          <div className="flex flex-row space-x-8 text-right ">
+          <h1 className="text-lg font-semibold text-right">
+            برجاء ادخال بيانات اخر رسامة
+          </h1>
+          <div className="flex flex-col space-y-4 text-right ">
+            <label className="">رتبة الشماس</label>
             <select
               value={rotba}
               onChange={(e) => setRotba(Number(e.target.value))}
@@ -70,11 +73,9 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="flex flex-col justify-center w-1/2">
-              رتبة الشماس
-            </label>
           </div>
-          <div className="flex flex-row space-x-8 text-right ">
+          <div className="flex flex-col space-y-4 text-right">
+            <label>اسم الأسقف القائم بالرسامة</label>
             <select
               value={oskof}
               onChange={(e) => setOskof(Number(e.target.value))}
@@ -86,11 +87,9 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="flex flex-col justify-center w-1/2">
-              اسم الأسقف القائم بالرسامة
-            </label>
           </div>
-          <div className="flex flex-row space-x-8 text-right ">
+          <div className="flex flex-col space-y-4 text-right">
+            <label>سنة الرسامة</label>
             <select
               className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={resamaYear}
@@ -102,11 +101,9 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="flex flex-col justify-center w-1/2">
-              سنة الرسامة
-            </label>
           </div>
-          <div className="flex flex-row space-x-8 text-right ">
+          <div className="flex flex-col space-y-4 text-right">
+            <label>اسم كنيسة الرسامة</label>
             <select
               value={resamaChurch}
               onChange={(e) => setResamaChurch(Number(e.target.value))}
@@ -118,9 +115,6 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="flex flex-col justify-center w-1/2">
-              اسم كنيسة الرسامة
-            </label>
           </div>
           <button
             onClick={handleSecondStage}
