@@ -210,9 +210,9 @@ function FirstStage(props: any) {
   };
 
   return (
-    <div>
+    <div className="container">
       {!secondStage && (
-        <div className="flex flex-col justify-center space-y-2 align-middle">
+        <div className="flex flex-col space-y-2 ">
           <h2 className="mb-4 text-xl font-bold text-center ">
             برجاء ادخال البيانات
           </h2>

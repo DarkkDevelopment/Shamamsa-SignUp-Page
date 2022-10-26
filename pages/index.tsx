@@ -55,7 +55,7 @@ const Home: NextPage = (props: any) => {
     <div className="flex flex-col items-center justify-center space-y-2 align-middle">
       {!selectOption && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
+          <Image src={logoShamamsa} alt="Logo" width={150} height={150} />
           <button
             onClick={() => {
               setOldUser(true);
@@ -68,11 +68,11 @@ const Home: NextPage = (props: any) => {
         </div>
       )}
       {oldUser && (
-        <div className="flex flex-col items-center justify-center m-32 space-y-10 ">
+        <div className="flex flex-col p-10 space-y-4 text-right">
           <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
           <FormLabel
             component="legend"
-            style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+            style={{ fontSize: "0.8rem", fontWeight: "bold" }}
           >
             برجاء ادخال الكود و كلمة السر
           </FormLabel>
@@ -82,7 +82,7 @@ const Home: NextPage = (props: any) => {
             label="الكود"
             value={oldUserCode}
             onChange={(e) => setOldUserCode(Number(e.target.value))}
-            className="px-4 py-2 text-right border border-gray-300 rounded"
+            className="w-full px-4 py-2 text-right border border-gray-300 rounded"
           />
           <TextField
             type="password"
@@ -90,13 +90,13 @@ const Home: NextPage = (props: any) => {
             placeholder="ادخل كلمة المرور"
             value={oldUserPassword}
             onChange={(e) => setOldUserPassword(e.target.value)}
-            className="px-4 py-2 text-right border border-gray-300 rounded"
+            className="w-full text-right border border-gray-300 rounded"
           />
           <Button
             variant="contained"
             style={{ backgroundColor: "#003AAD", color: "white" }}
             onClick={handleOldLogin}
-            className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+            className="w-full font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
           >
             دخول
           </Button>
