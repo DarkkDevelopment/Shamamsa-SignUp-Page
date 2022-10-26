@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.10",
     "axios": "^1.1.3",
+    "browser-image-compression": "^2.0.0",
     "firebase": "^9.12.1",
     "mui-one-time-password-input": "^1.0.3",
     "next": "12.3.1",
