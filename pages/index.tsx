@@ -52,7 +52,7 @@ const Home: NextPage = (props: any) => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 align-middle ">
+    <div className="flex flex-col items-center justify-center space-y-2 align-middle">
       {!selectOption && (
         <div className="flex flex-col items-center justify-center m-32 space-y-10">
           <Image src={logoShamamsa} alt="Logo" width={400} height={400} />

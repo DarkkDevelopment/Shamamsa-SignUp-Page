@@ -3,6 +3,10 @@ import { SignUpModel } from "../models/signUpModel";
 
 const signUp = async (user: SignUpModel, data: FormData) => {
   try {
+    console.log(user);
+    console.log(data.get("nationalIdImage"));
+    console.log(data.get("profileImage"));
+
     const response = await axios({
       method: "POST",
       url: "/api/auth/signUp",
@@ -24,11 +28,9 @@ const signUp = async (user: SignUpModel, data: FormData) => {
           profileImage: data.get("profileImage"),
         },
       });
-      if (insertImages.status === 200) {
-        return insertImages.data;
-      }
+      return insertImages.data;
     } else {
-      return response.data.message;
+      return response.data;
     }
   } catch (error) {
     console.log(error);
