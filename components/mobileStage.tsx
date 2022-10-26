@@ -54,31 +54,42 @@ export const MobileStage = (props: any) => {
 
     // const appVerifier = window.recaptchaVerifier;
 
-    signInWithPhoneNumber(auth, number, appVerifier)
-      .then((confirmationResult: any) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        setConfirmationResult(confirmationResult);
-        setClicked(true);
+    if (auth && appVerifier && number) {
+      signInWithPhoneNumber(auth, number, appVerifier)
+        .then((confirmationResult: any) => {
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          setConfirmationResult(confirmationResult);
+          setClicked(true);
 
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title:
-            "تم ارسال رمز تحقق مكون من 6 أرقام علي الرقم الذي قمت بادخاله بنجاح",
-          showConfirmButton: false,
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title:
+              "تم ارسال رمز تحقق مكون من 6 أرقام علي الرقم الذي قمت بادخاله بنجاح",
+            showConfirmButton: false,
+          });
+          // ...
+        })
+        .catch((error: any) => {
+          console.log(error.message);
+          // Error; SMS not sent
+          // ...
+          Swal.fire({
+            icon: "error",
+            text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
+            timer: 1500,
+          });
+          window.location.reload();
         });
-        // ...
-      })
-      .catch((error: any) => {
-        console.log(error.message);
-        // Error; SMS not sent
-        // ...
-        Swal.fire({
-          icon: "error",
-          text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
-        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
+        timer: 1500,
       });
+      window.location.reload();
+    }
   };
   return (
     <div>

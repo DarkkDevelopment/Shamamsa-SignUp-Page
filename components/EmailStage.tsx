@@ -56,6 +56,7 @@ export const EmailStage = (props: any) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        window.location.reload();
       }
     } catch (error) {
       // console.log(error);
@@ -80,9 +81,17 @@ export const EmailStage = (props: any) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        window.location.reload();
       }
     } catch (error) {
-      //console.log(error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "رمز التحقق غير صحيح",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.reload();
     }
   };
   return (
@@ -171,7 +180,7 @@ export const EmailStage = (props: any) => {
         </>
       )}
       {lastStage && (
-        <div className="flex flex-col items-center justify-center align-middle">
+        <div className="flex flex-col items-center justify-center mt-16 align-middle">
           <LastStage />
         </div>
       )}

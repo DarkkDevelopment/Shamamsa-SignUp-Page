@@ -2,8 +2,8 @@ import React from "react";
 
 function LastStage() {
   return (
-    <div className="flex flex-col items-center justify-center align-middle">
-      <p className="text-center">
+    <div className="flex flex-col items-center justify-center mt-16 align-middle">
+      <p className="font-semibold text-center">
         تم تسجيل طلبك بنجاح. برجاء التوجه لكنترول مدرسة الشمامسة يوم الجمعة 29
         نوفمبر 2022 من الساعة 10:00 صباحا إلى الساعة 1:30 ظهرا أو الأحد 30
         نوفمبر 2022 من الساعة 6:30 مساءً إلى الساعة 8:30 مساءً لدفع اشتراك الترم
