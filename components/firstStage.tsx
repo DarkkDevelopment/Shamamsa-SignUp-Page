@@ -13,7 +13,7 @@ import imageCompression from 'browser-image-compression';
 
 function FirstStage(props: any) {
   const [newUser, setNewUser] = useState<SignUpModel>({
-    code: props.code,
+    code: Number(props.code),
     status: "OLD",
     mobileNumber: "",
     email: "",
@@ -184,9 +184,9 @@ function FirstStage(props: any) {
   const handleNationalImageChange = async (e: any) => {
     setNationalIdImage(e.target.files[0].name);
     const compressedFile = await imageCompression(e.target.files[0], compressionOptions);
-    console.log(compressedFile.size / 1024 / 1024);
+    // console.log(compressedFile.size / 1024 / 1024);
     setOurFormData((prev) => {
-      prev.append("nationalIdImage", compressedFile);
+      prev.append("nationalIdImage",compressedFile);
       return prev;
     });
   };
