@@ -191,8 +191,8 @@ function FirstStage(props: any) {
   };
 
   const handleGenderChange = (e: any) => {
-    setGender(e.target.value);
-    console.log(e.target.value);
+    setGender(Number(e.target.value));
+    console.log(Number(e.target.value));
     if (gender == 1) {
       setCanBeShamas(false);
     } else {

@@ -30,10 +30,13 @@ const signUp = async (user: SignUpModel, data: FormData) => {
       });
       return insertImages.data;
     } else {
+      console.log(response.data.data);
       return response.data;
     }
-  } catch (error) {
+  } catch (error:any) {
     console.log(error);
+    return error.response.data;
+
   }
 };
 
