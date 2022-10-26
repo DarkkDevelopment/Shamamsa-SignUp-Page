@@ -75,9 +75,9 @@ function ThirdStage(props: any) {
   };
 
   return (
-    <div className="flex flex-col justify-center space-y-4 align-middle">
+    <div>
       {!fourthStage && (
-        <>
+        <div dir="rtl" className="flex flex-col space-y-8 ">
           <h1 className="text-2xl font-semibold text-center">
             {" "}
             تفاصيل العنوان
@@ -195,7 +195,7 @@ function ThirdStage(props: any) {
           >
             التالي
           </button>
-        </>
+        </div>
       )}
       {fourthStage && (
         <>

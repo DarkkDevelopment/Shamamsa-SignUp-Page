@@ -54,75 +54,75 @@ function SecondStage(props: any) {
   };
 
   return (
-    <div className="flex flex-col p-4 space-y-8 ">
+    <div>
       {!thirdStage && (
-        <>
-          <h1 className="text-lg font-semibold text-right">
+        <div dir="rtl" className="flex flex-col space-y-8 ">
+          <h2 className="mb-4 text-xl font-bold text-center ">
             برجاء ادخال بيانات اخر رسامة
-          </h1>
-          <div className="flex flex-col space-y-4 text-right ">
-            <label className="">رتبة الشماس</label>
-            <select
-              value={rotba}
-              onChange={(e) => setRotba(Number(e.target.value))}
-              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              {allRotab.map((rotab: any) => (
-                <option key={rotab.id} value={rotab.id}>
-                  {rotab.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex flex-col space-y-4 text-right">
-            <label>اسم الأسقف القائم بالرسامة</label>
-            <select
-              value={oskof}
-              onChange={(e) => setOskof(Number(e.target.value))}
-              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              {allAsakfa.map((asakfa: any) => (
-                <option key={asakfa.id} value={asakfa.id}>
-                  {asakfa.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex flex-col space-y-4 text-right">
-            <label>سنة الرسامة</label>
-            <select
-              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={resamaYear}
-              onChange={(e) => setResamaYear(Number(e.target.value))}
-            >
-              {years.map((year: any) => (
-                <option key={year.value} value={year.value}>
-                  {year.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex flex-col space-y-4 text-right">
-            <label>اسم كنيسة الرسامة</label>
-            <select
-              value={resamaChurch}
-              onChange={(e) => setResamaChurch(Number(e.target.value))}
-              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              {allChurch.map((church: any) => (
-                <option key={church.id} value={church.id}>
-                  {church.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          </h2>
+          <label className="mb-4 text-sm font-medium text-right text-gray-700 ">
+            رتبة الشماس
+          </label>
+          <select
+            value={rotba}
+            onChange={(e) => setRotba(Number(e.target.value))}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          >
+            {allRotab.map((rotab: any) => (
+              <option key={rotab.id} value={rotab.id}>
+                {rotab.name}
+              </option>
+            ))}
+          </select>
+          <label className="mb-4 text-sm font-medium text-right text-gray-700 ">
+            اسم الأسقف القائم بالرسامة
+          </label>
+          <select
+            value={oskof}
+            onChange={(e) => setOskof(Number(e.target.value))}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          >
+            {allAsakfa.map((asakfa: any) => (
+              <option key={asakfa.id} value={asakfa.id}>
+                {asakfa.name}
+              </option>
+            ))}
+          </select>
+          <label className="mb-4 text-sm font-medium text-right text-gray-700 ">
+            سنة الرسامة
+          </label>
+          <select
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            value={resamaYear}
+            onChange={(e) => setResamaYear(Number(e.target.value))}
+          >
+            {years.map((year: any) => (
+              <option key={year.value} value={year.value}>
+                {year.name}
+              </option>
+            ))}
+          </select>
+          <label className="mb-4 text-sm font-medium text-right text-gray-700 ">
+            اسم كنيسة الرسامة
+          </label>
+          <select
+            value={resamaChurch}
+            onChange={(e) => setResamaChurch(Number(e.target.value))}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          >
+            {allChurch.map((church: any) => (
+              <option key={church.id} value={church.id}>
+                {church.name}
+              </option>
+            ))}
+          </select>
           <button
             onClick={handleSecondStage}
             className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             التالي
           </button>
-        </>
+        </div>
       )}
       {thirdStage && (
         <ThirdStage
