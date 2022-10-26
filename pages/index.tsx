@@ -54,7 +54,7 @@ const Home: NextPage = (props: any) => {
   return (
     <div>
       {!selectOption && (
-        <div className="flex flex-col justify-center p-16 mt-8 align-middle ">
+        <div className="flex flex-col items-center justify-center p-16 m-auto ">
           <Image
             style={{
               marginBottom: 10,
