@@ -43,37 +43,46 @@ export const EmailStage = (props: any) => {
     }
   };
 
-  const handleVerifyOTP = async () => {
-    const response = await axios.post("/api/auth/verifyMailOTP", {
-      otp,
-      email,
-    });
-    if (response.status === 200) {
-      setLoading(true);
-      console.log(response.data);
-      ourUser.email = email;
-      console.log(ourUser);
-      console.log(photos);
+  const handleSignUpRequest = async () => {
+    try {
       const res = await signUp(ourUser, photos);
-      if (res.status === true) {
+      if (res.status == true) {
         setLastStage(true);
-      } else {
+      } else if (res.status == false) {
         Swal.fire({
           position: "center",
           icon: "error",
-          text: "حدث خطأ ما",
+          text: res.message,
           showConfirmButton: false,
           timer: 1500,
         });
       }
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "رمز التحقق غير صحيح",
-        showConfirmButton: false,
-        timer: 1500,
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    try {
+      const response = await axios.post("/api/auth/verifyMailOTP", {
+        otp,
+        email,
       });
+      if (response.status) {
+        setLoading(true);
+        ourUser.email = email;
+        handleSignUpRequest();
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          text: "رمز التحقق غير صحيح",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      //console.log(error);
     }
   };
   return (
