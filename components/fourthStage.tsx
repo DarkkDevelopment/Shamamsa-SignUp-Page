@@ -22,9 +22,7 @@ function FourthStage(props: any) {
       confessChurch == 0 ||
       fatherconfessChurch == 0 ||
       confessName == "" ||
-      confessMobile == "" ||
-      fatherConfessName == "" ||
-      fatherConfessMobile == ""
+      fatherConfessName == ""
     ) {
       alert("من فضلك ادخل جميع البيانات");
     } else {
@@ -60,7 +58,6 @@ function FourthStage(props: any) {
             fullWidth
             value={confessMobile}
             onChange={(e) => setConfessMobile(e.target.value)}
-            error={confessMobile === ""}
           />
           <select
             value={confessChurch}
@@ -76,7 +73,7 @@ function FourthStage(props: any) {
           </select>
           <TextField
             id="outlined-basic"
-            label="أب اعتراف الأسرة"
+            label="أب الأسرة"
             variant="outlined"
             fullWidth
             value={fatherConfessName}
@@ -90,7 +87,6 @@ function FourthStage(props: any) {
             fullWidth
             value={fatherConfessMobile}
             onChange={(e) => setFatherConfessMobile(e.target.value)}
-            error={fatherConfessMobile === ""}
           />
           <select
             value={fatherconfessChurch}

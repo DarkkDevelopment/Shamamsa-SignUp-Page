@@ -54,6 +54,14 @@ export const EmailStage = (props: any) => {
       const res = await signUp(ourUser, photos);
       if (res.status === true) {
         setLastStage(true);
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          text: "حدث خطأ ما",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     } else {
       Swal.fire({

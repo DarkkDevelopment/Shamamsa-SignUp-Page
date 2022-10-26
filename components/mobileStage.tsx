@@ -107,9 +107,9 @@ export const MobileStage = (props: any) => {
               variant="contained"
               id="sign-in-button"
               onClick={onSignInSubmit}
-              sx={{ marginBottom: "1rem" }}
+              sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
             >
-              Send Button
+              ارسال رمز التحقق
             </Button>
           </div>
           <div className="flex flex-col items-center justify-between">
@@ -134,7 +134,7 @@ export const MobileStage = (props: any) => {
 
             <Button
               variant="contained"
-              sx={{ marginBottom: "1rem" }}
+              sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
               onClick={() => {
                 confirmationResult
                   .confirm(otp)
@@ -153,7 +153,7 @@ export const MobileStage = (props: any) => {
                   });
               }}
             >
-              Verify
+              تأكيد
             </Button>
           </div>
         </>
