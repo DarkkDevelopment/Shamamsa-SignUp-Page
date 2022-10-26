@@ -9,6 +9,7 @@ import { validateNationalID } from "../utils/validateNationalID";
 import SecondStage from "./secondStage";
 import ThirdStage from "./thirdStage";
 import Swal from "sweetalert2";
+import imageCompression from 'browser-image-compression';
 
 function FirstStage(props: any) {
   const [newUser, setNewUser] = useState<SignUpModel>({
@@ -175,17 +176,25 @@ function FirstStage(props: any) {
       });
     }
   };
-  const handleNationalImageChange = (e: any) => {
+  const compressionOptions = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true
+  }
+  const handleNationalImageChange = async (e: any) => {
     setNationalIdImage(e.target.files[0].name);
+    const compressedFile = await imageCompression(e.target.files[0], compressionOptions);
+    console.log(compressedFile.size / 1024 / 1024);
     setOurFormData((prev) => {
-      prev.append("nationalIdImage", e.target.files[0]);
+      prev.append("nationalIdImage", compressedFile);
       return prev;
     });
   };
-  const handleStudentImageChange = (e: any) => {
+  const handleStudentImageChange = async (e: any) => {
     setStudentImage(e.target.files[0].name);
+    const compressedFile = await imageCompression(e.target.files[0], compressionOptions);
     setOurFormData((prev) => {
-      prev.append("profileImage", e.target.files[0]);
+      prev.append("profileImage", compressedFile);
       return prev;
     });
   };
