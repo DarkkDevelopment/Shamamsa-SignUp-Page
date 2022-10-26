@@ -15,6 +15,7 @@ import {
   getmara7el,
   getRotab,
 } from "../services/lookups";
+import { validateNumbers } from "../utils/validateNumbers";
 
 const Home: NextPage = (props: any) => {
   const allMara7el = props.mara7el;
@@ -26,17 +27,28 @@ const Home: NextPage = (props: any) => {
   const [oldUser, setOldUser] = useState(false);
   const [signUpFlowOld, setSignUpFlowOld] = useState(false);
   const [selectOption, setSelectOption] = useState(false);
-  const [oldUserCode, setOldUserCode] = useState(0);
+  const [oldUserCode, setOldUserCode] = useState("");
   const [oldUserPassword, setOldUserPassword] = useState("");
 
   // todo: this is the method for logging in the old user
   const handleOldLogin = async () => {
     try {
-      const response = await loginUser(oldUserCode, oldUserPassword);
-      if (response.status) {
-        console.log(response);
-        setSignUpFlowOld(true);
-        setOldUser(false);
+      if (validateNumbers(oldUserCode)) {
+        const response = await loginUser(Number(oldUserCode), oldUserPassword);
+        if (response.status) {
+          console.log(response);
+          setSignUpFlowOld(true);
+          setOldUser(false);
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            text: "برجاء ادخال البيانات بشكل صحيح",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setSignUpFlowOld(false);
+        }
       } else {
         Swal.fire({
           position: "center",
@@ -76,21 +88,30 @@ const Home: NextPage = (props: any) => {
         </div>
       )}
       {oldUser && (
-        <div className="flex flex-col p-10 space-y-4 text-right">
-          <Image src={logoShamamsa} alt="Logo" width={400} height={400} />
+        <div className="flex flex-col items-center justify-center p-16 m-auto space-y-8 ">
+          <Image
+            style={{
+              marginBottom: 10,
+            }}
+            src={logoShamamsa}
+            alt="Logo"
+            width={200}
+            height={200}
+          />
           <FormLabel
             component="legend"
-            style={{ fontSize: "0.8rem", fontWeight: "bold" }}
+            style={{ fontSize: "0.8rem", fontWeight: "bold", marginBottom: 10 }}
           >
             برجاء ادخال الكود و كلمة السر
           </FormLabel>
           <TextField
-            type="number"
+            type="text"
             placeholder="الكود"
             label="الكود"
             value={oldUserCode}
-            onChange={(e) => setOldUserCode(Number(e.target.value))}
+            onChange={(e) => setOldUserCode(e.target.value)}
             className="w-full px-4 py-2 text-right border border-gray-300 rounded"
+            error={oldUserCode.length < 1 || !validateNumbers(oldUserCode)}
           />
           <TextField
             type="password"
