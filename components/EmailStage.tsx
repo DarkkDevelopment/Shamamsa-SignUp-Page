@@ -77,67 +77,87 @@ export const EmailStage = (props: any) => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-between">
+    <div>
       {!lastStage && (
         <>
-          <TextField
-            id="outlined-basic"
-            label="الايميل"
-            variant="outlined"
-            style={{
-              width: "100%",
-              textAlign: "right",
-              justifyContent: "flex-end",
-              fontSize: "1.2rem",
-              marginBottom: "1rem",
-            }}
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-          {!clicked && (
-            <>
-              <Button
-                variant="contained"
-                sx={{ marginBottom: "1rem" }}
-                onClick={handleVerifyEmail}
-              >
-                ارسال
-              </Button>
-            </>
-          )}
-          <MuiOtpInput
-            value={otp}
-            onChange={handleChange}
-            length={6}
-            sx={{
-              zoom: 0.9,
-              width: "100%",
-              textAlign: "center",
-              justifyContent: "center",
-              marginBottom: "1rem",
-              "& input": {
-                fontSize: "0.8rem",
-                width: "0.5rem",
-                height: "0.5rem",
-              },
-            }}
-          />
+          <div className="flex flex-col items-center justify-between">
+            <h1 className="mb-8 text-2xl font-bold text-center">
+              تأكيد البريد الالكتروني
+            </h1>
+            <TextField
+              id="outlined-basic"
+              label="قم بادخال البريد الالكتروني"
+              variant="outlined"
+              style={{
+                width: "100%",
+                textAlign: "right",
+                justifyContent: "flex-end",
+                fontSize: "1.2rem",
+                marginTop: "1.5rem",
+              }}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              error={email === ""}
+            />
+            {!clicked && (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    marginBottom: "5rem",
+                    borderRadius: "0.5rem",
+                    marginTop: "1.5rem",
+                  }}
+                  onClick={handleVerifyEmail}
+                >
+                  ارسال
+                </Button>
+              </>
+            )}
+          </div>
+          <div className="flex flex-col items-center justify-between">
+            <label className="mb-5 text-sm text-center text-gray-500">
+              قم بادخال رمز التحقق الذي تم استلامه{" "}
+            </label>
+            <MuiOtpInput
+              value={otp}
+              onChange={handleChange}
+              length={6}
+              sx={{
+                zoom: 0.9,
+                width: "100%",
+                textAlign: "center",
+                justifyContent: "center",
+                marginBottom: "1rem",
+                "& input": {
+                  fontSize: "0.8rem",
+                  width: "0.5rem",
+                  height: "0.5rem",
+                },
+              }}
+            />
+          </div>
+
           <div id="recaptcha-container"></div>
           {loading ? (
-            <div className="my-4">
+            <div className="flex my-4 align-middle">
               <h2>برجاء الانتظار جاري ارسال البيانات</h2>
               <CircularProgress />
             </div>
           ) : (
-            <>
+            <div className="flex justify-center ">
               <Button
                 variant="contained"
-                sx={{ marginBottom: "1rem" }}
+                sx={{
+                  marginBottom: "1rem",
+                  justifyContent: "center",
+                  marginTop: "1.5rem",
+                }}
                 onClick={handleVerifyOTP}
               >
                 تأكيد
               </Button>
-            </>
+            </div>
           )}
         </>
       )}

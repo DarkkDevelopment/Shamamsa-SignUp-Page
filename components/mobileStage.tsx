@@ -64,7 +64,8 @@ export const MobileStage = (props: any) => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "تم ارسال رمز التحقق بنجاح",
+          title:
+            "تم ارسال رمز تحقق مكون من 6 أرقام علي الرقم الذي قمت بادخاله بنجاح",
           showConfirmButton: false,
         });
         // ...
@@ -84,20 +85,28 @@ export const MobileStage = (props: any) => {
       {!emailStage && (
         <>
           <div className="flex flex-col items-center justify-between">
+            <h1 className="mb-8 text-2xl font-bold text-center">
+              تأكيد رقم الموبايل
+            </h1>
             <TextField
               id="outlined-basic"
-              label="رقم الهاتف"
+              label="قم بادخال رقم الموبايل"
               variant="outlined"
               style={{
                 width: "100%",
                 textAlign: "right",
                 justifyContent: "flex-end",
                 fontSize: "1.2rem",
-                marginBottom: "1rem",
+                marginTop: "1.5rem",
               }}
               onChange={(e) => setPhoneNumber(e.target.value)}
               value={phoneNumber}
-              error={phoneNumber.length < 10}
+              error={phoneNumber.length != 11}
+              helperText={
+                phoneNumber.length != 11
+                  ? "يجب أن يتكون رقم الهاتف من 11 رقم "
+                  : ""
+              }
             />
             <div id="recaptcha-container" className="my-4"></div>
 
@@ -114,7 +123,10 @@ export const MobileStage = (props: any) => {
               </>
             )}
           </div>
-          <div className="flex flex-col items-center justify-between">
+          <div className="flex flex-col items-center justify-between mt-8">
+            <label className="mb-5 text-sm text-gray-500">
+              قم بادخال رمز التحقق الذي تم استلامه{" "}
+            </label>
             <MuiOtpInput
               value={otp}
               onChange={handleChange}
@@ -124,7 +136,8 @@ export const MobileStage = (props: any) => {
                 width: "100%",
                 textAlign: "center",
                 justifyContent: "center",
-                marginBottom: "1rem",
+                marginBottom: "2rem",
+
                 "& input": {
                   fontSize: "0.8rem",
                   width: "0.5rem",
@@ -144,6 +157,13 @@ export const MobileStage = (props: any) => {
                     const user = result.user;
                     // ...
                     console.log(user);
+                    Swal.fire({
+                      position: "center",
+                      icon: "success",
+                      title: "تم تأكيد رقم الموبايل بنجاح",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
                     setEmailStage(true);
                     ourUser.mobileNumber = phoneNumber;
                   })

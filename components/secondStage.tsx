@@ -1,34 +1,11 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { SignUpModel } from "../models/signUpModel";
 import convertDate from "../utils/convertDate";
 import ThirdStage from "./thirdStage";
 
 function SecondStage(props: any) {
-  const allRotab = props.rotab;
-  const allAsakfa = props.asakfa;
-  const allChurch = props.churches;
-  const allCountries = props.countries;
-  const images = props.photos;
-  const user: SignUpModel = props.user;
-  const [thirdStage, setThirdStage] = useState(false);
-  const [rotba, setRotba] = useState(props.rotab[0].id);
-  const [oskof, setOskof] = useState(props.asakfa[0].id);
-  const [resamaYear, setResamaYear] = useState(0);
-  const [resamaChurch, setResamaChurch] = useState(props.churches[0].id);
-  const handleSecondStage = () => {
-    if (rotba && oskof && resamaYear && resamaChurch) {
-      setThirdStage(true);
-      user.ShammasData = {
-        studentRotbaShamasyalId: rotba,
-        oskofElResamaId: oskof,
-        resamaYear: resamaYear,
-        studentResamaChuruchId: resamaChurch,
-      };
-    } else {
-      alert("برجاء ادخال جميع البيانات");
-    }
-  };
   const startYear = 1950;
   const endYear = new Date().getFullYear();
   let i = 0;
@@ -39,6 +16,43 @@ function SecondStage(props: any) {
       value: i,
     });
   }
+  const allRotab = props.rotab;
+  const allAsakfa = props.asakfa;
+  const allChurch = props.churches;
+  const allCountries = props.countries;
+  const images = props.photos;
+  const user: SignUpModel = props.user;
+  const [thirdStage, setThirdStage] = useState(false);
+  const [rotba, setRotba] = useState(props.rotab[0].id);
+  const [oskof, setOskof] = useState(props.asakfa[0].id);
+  const [resamaYear, setResamaYear] = useState(years[0].value);
+  const [resamaChurch, setResamaChurch] = useState(props.churches[0].id);
+
+  // todo : this one will handle when I press next
+  const handleSecondStage = () => {
+    console.log(rotba);
+    console.log(oskof);
+    console.log(resamaYear);
+    console.log(resamaChurch);
+    if (rotba && oskof && resamaYear && resamaChurch) {
+      setThirdStage(true);
+      user.ShammasData = {
+        studentRotbaShamasyalId: rotba,
+        oskofElResamaId: oskof,
+        resamaYear: resamaYear,
+        studentResamaChuruchId: resamaChurch,
+      };
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "من فضلك ادخل جميع البيانات",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
       {!thirdStage && (
@@ -79,8 +93,6 @@ function SecondStage(props: any) {
           <div className="flex flex-row space-x-8 text-right ">
             <select
               className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              name="resamaYears"
-              id=""
               value={resamaYear}
               onChange={(e) => setResamaYear(Number(e.target.value))}
             >
