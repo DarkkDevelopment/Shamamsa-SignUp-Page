@@ -170,7 +170,11 @@ export const EmailStage = (props: any) => {
           )}
         </>
       )}
-      {lastStage && <LastStage />}
+      {lastStage && (
+        <div className="flex flex-col items-center justify-center align-middle">
+          <LastStage />
+        </div>
+      )}
     </div>
   );
 };
