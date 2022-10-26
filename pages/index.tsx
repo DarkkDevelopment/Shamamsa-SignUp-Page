@@ -52,10 +52,18 @@ const Home: NextPage = (props: any) => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 align-middle">
+    <div>
       {!selectOption && (
-        <div className="flex flex-col items-center justify-center m-32 space-y-10">
-          <Image src={logoShamamsa} alt="Logo" width={150} height={150} />
+        <div className="flex flex-col justify-center p-16 mt-8 align-middle ">
+          <Image
+            style={{
+              marginBottom: 10,
+            }}
+            src={logoShamamsa}
+            alt="Logo"
+            width={200}
+            height={200}
+          />
           <button
             onClick={() => {
               setOldUser(true);
