@@ -2,7 +2,7 @@ import React from "react";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import axios from "../utils/axios";
 import Swal from "sweetalert2";
 import LastStage from "./lastStage";
@@ -14,6 +14,8 @@ export const EmailStage = (props: any) => {
   const photos = props.photos;
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
   const ourUser: SignUpModel = props.user;
   let countDownInterval: NodeJS.Timer;
   const [time, setTime] = useState(0);
@@ -47,6 +49,7 @@ export const EmailStage = (props: any) => {
       email,
     });
     if (response.status === 200) {
+      setLoading(true);
       console.log(response.data);
       ourUser.email = email;
       console.log(ourUser);
@@ -91,13 +94,19 @@ export const EmailStage = (props: any) => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
-          <Button
-            variant="contained"
-            sx={{ marginBottom: "1rem" }}
-            onClick={handleVerifyEmail}
-          >
-            ارسال
-          </Button>
+          {
+            !clicked && (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{ marginBottom: "1rem" }}
+                  onClick={handleVerifyEmail}
+                >
+                  ارسال
+                </Button>
+              </>
+            )
+          }
           <MuiOtpInput
             value={otp}
             onChange={handleChange}
@@ -116,13 +125,22 @@ export const EmailStage = (props: any) => {
             }}
           />
           <div id="recaptcha-container"></div>
-          <Button
-            variant="contained"
-            sx={{ marginBottom: "1rem" }}
-            onClick={handleVerifyOTP}
-          >
-            تأكيد
-          </Button>
+          {
+            loading ? (
+              <>
+                <h2>برجاء الانتظار جاري ارسال البيانات</h2>
+                <CircularProgress />
+              </>
+            ) : <>
+              <Button
+                variant="contained"
+                sx={{ marginBottom: "1rem" }}
+                onClick={handleVerifyOTP}
+              >
+                تأكيد
+              </Button>
+            </>
+          }
         </>
       )}
       {lastStage && <LastStage />}

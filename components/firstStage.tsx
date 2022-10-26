@@ -117,6 +117,7 @@ function FirstStage(props: any) {
     setMara7ala(Number(mar7alaId));
     const response = await getsneen(mar7alaId);
     setSneen(response);
+    setSana(response[0].id);
   };
   // todo: this one will handle when user finished first stage and then show hime the second stage
   // todo : this will also handle adding the data inserted into our model

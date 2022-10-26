@@ -35,7 +35,7 @@ export const MobileStage = (props: any) => {
   const auth = getAuth();
   auth.languageCode = "ar";
   const [otp, setOtp] = useState("");
-
+  const [clicked, setClicked] = useState(false);
   const handleChange = (newValue: string) => {
     setOtp(newValue);
   };
@@ -66,6 +66,8 @@ export const MobileStage = (props: any) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
         setConfirmationResult(confirmationResult);
+        setClicked(true);
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -103,15 +105,22 @@ export const MobileStage = (props: any) => {
               value={phoneNumber}
               error={phoneNumber.length < 10}
             />
-            <div id="recaptcha-container"></div>
-            <Button
-              variant="contained"
-              id="sign-in-button"
-              onClick={onSignInSubmit}
-              sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
-            >
-              ارسال رمز التحقق
-            </Button>
+        <div id="recaptcha-container" className="my-4"></div>
+
+            {
+              !clicked && (
+                <>
+                  <Button
+                    variant="contained"
+                    id="sign-in-button"
+                    onClick={onSignInSubmit}
+                    sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
+                  >
+                    ارسال رمز التحقق
+                  </Button>
+                </>
+              )
+            }
           </div>
           <div className="flex flex-col items-center justify-between">
             <MuiOtpInput

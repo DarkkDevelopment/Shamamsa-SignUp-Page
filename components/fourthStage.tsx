@@ -53,7 +53,7 @@ function FourthStage(props: any) {
           />
           <TextField
             id="outlined-basic"
-            label="رقم موبايل أب الاعتراف"
+            label="رقم موبايل أب الاعتراف (اختياري)"
             variant="outlined"
             fullWidth
             value={confessMobile}
@@ -82,7 +82,7 @@ function FourthStage(props: any) {
           />
           <TextField
             id="outlined-basic"
-            label="رقم موبايل أب اعتراف الأسرة"
+            label="رقم موبايل أب اعتراف الأسرة (اختياري)"
             variant="outlined"
             fullWidth
             value={fatherConfessMobile}
