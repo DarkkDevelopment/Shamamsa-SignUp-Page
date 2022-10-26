@@ -130,7 +130,8 @@ function ThirdStage(props: any) {
             onChange={(e) => setStreet(e.target.value)}
             error={street === ""}
           />
-          <div className="flex flex-row space-x-8">
+          <div className="flex flex-col space-y-4">
+            <label>البلد</label>
             <select
               value={country}
               onChange={handleCountryChange}
@@ -143,11 +144,9 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
-              البلد
-            </label>
           </div>
-          <div className="flex flex-row space-x-8">
+          <div className="flex flex-col space-y-4">
+            <label>المحافظة</label>
             <select
               value={city}
               onChange={handleCityChange}
@@ -159,11 +158,9 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
-              المحافظة
-            </label>
           </div>
-          <div className="flex flex-row space-x-8">
+          <div className="flex flex-col space-y-4">
+            <label>المنطقة</label>
             <select
               value={manteqa}
               onChange={(e) => setManteqa(Number(e.target.value))}
@@ -175,9 +172,6 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
-              المنطقة
-            </label>
           </div>
           <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
             أقرب علامة
