@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import React from "react";
+import Swal from "sweetalert2";
 import { SignUpModel } from "../models/signUpModel";
 import { getCitiesByCountryId, getManateqByCityId } from "../services/lookups";
 import FourthStage from "./fourthStage";
@@ -38,7 +39,6 @@ function ThirdStage(props: any) {
     setCity(Number(event.target.value));
     const getManateq = await getManateqByCityId(Number(event.target.value));
     setManateq(getManateq);
-    //@ts-ignore
     setManteqa(getManateq[0].manteqa_id);
   };
 
@@ -53,7 +53,13 @@ function ThirdStage(props: any) {
       manteqa == 0 ||
       landMark == ""
     ) {
-      alert("من فضلك ادخل جميع البيانات");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "من فضلك ادخل جميع البيانات",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } else {
       setFourthStage(true);
       user.address = {
@@ -69,11 +75,21 @@ function ThirdStage(props: any) {
   };
 
   return (
-    <div className="flex flex-col justify-center space-y-10 align-middle">
+    <div className="flex flex-col justify-center space-y-4 align-middle">
       {!fourthStage && (
         <>
-          <h1 className="text-2xl">ادخل تفاصيل العنوان</h1>
+          <h1 className="text-2xl font-semibold text-center">
+            {" "}
+            تفاصيل العنوان
+          </h1>
+          <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+            رقم الشقة
+          </label>
           <TextField
+            style={{
+              textAlign: "right",
+              direction: "rtl",
+            }}
             id="outlined-basic"
             label="رقم الشقة"
             variant="outlined"
@@ -82,7 +98,14 @@ function ThirdStage(props: any) {
             onChange={(e) => setAppartment(Number(e.target.value))}
             error={appartment === 0}
           />
+          <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+            رقم العمارة
+          </label>
           <TextField
+            style={{
+              textAlign: "right",
+              direction: "rtl",
+            }}
             id="outlined-basic"
             label="رقم العمارة"
             variant="outlined"
@@ -91,7 +114,14 @@ function ThirdStage(props: any) {
             onChange={(e) => setBuilding(Number(e.target.value))}
             error={building === 0}
           />
+          <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+            اسم الشارع
+          </label>
           <TextField
+            style={{
+              textAlign: "right",
+              direction: "rtl",
+            }}
             id="outlined-basic"
             label="الشارع "
             variant="outlined"
@@ -113,7 +143,9 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>البلد</label>
+            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+              البلد
+            </label>
           </div>
           <div className="flex flex-row space-x-8">
             <select
@@ -127,7 +159,9 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>المحافظة</label>
+            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+              المحافظة
+            </label>
           </div>
           <div className="flex flex-row space-x-8">
             <select
@@ -141,10 +175,18 @@ function ThirdStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>المنطقة</label>
+            <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+              المنطقة
+            </label>
           </div>
-
+          <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
+            أقرب علامة
+          </label>
           <TextField
+            style={{
+              textAlign: "right",
+              direction: "rtl",
+            }}
             id="outlined-basic"
             label="أقرب علامة "
             variant="outlined"

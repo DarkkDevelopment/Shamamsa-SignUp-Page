@@ -8,6 +8,7 @@ import validateTextArabic from "../utils/vaildateArabic";
 import { validateNationalID } from "../utils/validateNationalID";
 import SecondStage from "./secondStage";
 import ThirdStage from "./thirdStage";
+import Swal from "sweetalert2";
 
 function FirstStage(props: any) {
   const [newUser, setNewUser] = useState<SignUpModel>({
@@ -67,6 +68,7 @@ function FirstStage(props: any) {
   const [nationalIdImage, setNationalIdImage] = useState<File | null>(null);
   const [studentImage, setStudentImage] = useState<File | null>(null);
   const [ourFormData, setOurFormData] = useState(new FormData());
+  const [canBeShamas, setCanBeShamas] = useState(false);
 
   // todo : this is the options we used in the first stage
   const mara7elOptionsFromDatabase = allMara7el.map((mara7el: any) => {
@@ -91,7 +93,7 @@ function FirstStage(props: any) {
   });
   const genderOptions = [
     <option key={0} value={0}>
-      اختر جنس
+      اختر النوع
     </option>,
     <option key={1} value={1}>
       ذكر
@@ -101,9 +103,6 @@ function FirstStage(props: any) {
     </option>,
   ];
   const ShamasOptions = [
-    <option key={0} value={0}>
-      شماس ام لا
-    </option>,
     <option key={1} value={1}>
       نعم
     </option>,
@@ -119,7 +118,6 @@ function FirstStage(props: any) {
     setSneen(response);
     setSana(response[0].id);
   };
-
   // todo: this one will handle when user finished first stage and then show hime the second stage
   // todo : this will also handle adding the data inserted into our model
   const handleSubmitFirstStage = async (e: any) => {
@@ -159,10 +157,22 @@ function FirstStage(props: any) {
         });
         setSecondStage(true);
       } else {
-        alert(response.message);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          text: response.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     } else {
-      alert("الرجاء التأكد من ادخال البيانات بشكل صحيح");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "برجاء ادخال البيانات بشكل صحيح",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
   const handleNationalImageChange = (e: any) => {
@@ -179,6 +189,17 @@ function FirstStage(props: any) {
       return prev;
     });
   };
+
+  const handleGenderChange = (e: any) => {
+    setGender(e.target.value);
+    console.log(e.target.value);
+    if (gender == 1) {
+      setCanBeShamas(false);
+    } else {
+      setCanBeShamas(true);
+    }
+  };
+
   return (
     <div>
       {!secondStage && (
@@ -186,80 +207,96 @@ function FirstStage(props: any) {
           <h2 className="mb-4 text-xl font-bold text-center ">
             برجاء ادخال البيانات
           </h2>
-          <TextField
-            id="outlined-basic"
-            label="الاسم الاول"
-            variant="outlined"
-            style={{
-              width: "100%",
-              textAlign: "right",
-              justifyContent: "flex-end",
-              fontSize: "1.2rem",
-            }}
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            error={firstName === "" || !validateTextArabic(firstName)}
-            helperText={
-              firstName === "" || !validateTextArabic(firstName)
-                ? "الاسم الاول مطلوب و يجب أن يكون باللغة العربية"
-                : ""
-            }
-          />
-          <TextField
-            id="outlined-basic"
-            label="الاسم التاني"
-            variant="outlined"
-            style={{
-              width: "100%",
-              textAlign: "right",
-              justifyContent: "flex-end",
-            }}
-            value={secondName}
-            onChange={(e) => setSecondName(e.target.value)}
-            error={secondName === "" || !validateTextArabic(secondName)}
-            helperText={
-              secondName === "" || !validateTextArabic(secondName)
-                ? "الاسم التاني مطلوب و  يجب أن يكون باللغة العربية"
-                : ""
-            }
-          />
-          <TextField
-            id="outlined-basic"
-            label="الاسم التالت"
-            variant="outlined"
-            style={{
-              width: "100%",
-              textAlign: "right",
-              justifyContent: "flex-end",
-            }}
-            value={thirdName}
-            onChange={(e) => setThirdName(e.target.value)}
-            error={thirdName === "" || !validateTextArabic(thirdName)}
-            helperText={
-              thirdName === "" || !validateTextArabic(thirdName)
-                ? "الاسم التالت مطلوب و يجب أن يكون باللغة العربية"
-                : ""
-            }
-          />
-          <TextField
-            id="outlined-basic"
-            label="الاسم الرابع"
-            variant="outlined"
-            style={{
-              width: "100%",
-              textAlign: "right",
-              justifyContent: "flex-end",
-              fontSize: "1.2rem",
-            }}
-            value={fourthName}
-            onChange={(e) => setFourthName(e.target.value)}
-            error={fourthName === "" || !validateTextArabic(fourthName)}
-            helperText={
-              fourthName === "" || !validateTextArabic(fourthName)
-                ? "الاسم الرابع مطلوب و يجب أن يكون باللغة العربية"
-                : ""
-            }
-          />
+          <div dir="rtl">
+            <label className="block mb-4 text-sm font-medium text-right text-gray-700 ">
+              الاسم الاول
+            </label>
+            <TextField
+              id="outlined-basic"
+              label="برجاء ادخال الاسم الاول"
+              variant="outlined"
+              style={{
+                width: "100%",
+                textAlign: "right",
+                justifyContent: "flex-end",
+                fontSize: "1.2rem",
+              }}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              error={firstName === "" || !validateTextArabic(firstName)}
+              helperText={
+                firstName === "" || !validateTextArabic(firstName)
+                  ? "الاسم الاول مطلوب و يجب أن يكون باللغة العربية"
+                  : ""
+              }
+            />
+            <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+              الاسم الثاني
+            </label>
+            <TextField
+              id="outlined-basic"
+              label=" برجاء ادخال الاسم الثاني"
+              variant="outlined"
+              style={{
+                width: "100%",
+                textAlign: "right",
+                justifyContent: "flex-end",
+              }}
+              value={secondName}
+              onChange={(e) => setSecondName(e.target.value)}
+              error={secondName === "" || !validateTextArabic(secondName)}
+              helperText={
+                secondName === "" || !validateTextArabic(secondName)
+                  ? "الاسم التاني مطلوب و  يجب أن يكون باللغة العربية"
+                  : ""
+              }
+            />
+            <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+              الاسم الثالث
+            </label>
+            <TextField
+              id="outlined-basic"
+              label=" برجاء ادخال الاسم الثالث"
+              variant="outlined"
+              style={{
+                width: "100%",
+                textAlign: "right",
+                justifyContent: "flex-end",
+              }}
+              value={thirdName}
+              onChange={(e) => setThirdName(e.target.value)}
+              error={thirdName === "" || !validateTextArabic(thirdName)}
+              helperText={
+                thirdName === "" || !validateTextArabic(thirdName)
+                  ? "الاسم التالت مطلوب و يجب أن يكون باللغة العربية"
+                  : ""
+              }
+            />
+
+            <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+              الاسم الرابع
+            </label>
+            <TextField
+              id="outlined-basic"
+              label=" برجاء ادخال الاسم الرابع"
+              variant="outlined"
+              style={{
+                width: "100%",
+                textAlign: "right",
+                justifyContent: "flex-end",
+                fontSize: "1.2rem",
+              }}
+              value={fourthName}
+              onChange={(e) => setFourthName(e.target.value)}
+              error={fourthName === "" || !validateTextArabic(fourthName)}
+              helperText={
+                fourthName === "" || !validateTextArabic(fourthName)
+                  ? "الاسم الرابع مطلوب و يجب أن يكون باللغة العربية"
+                  : ""
+              }
+            />
+          </div>
+
           <label className="block text-sm font-medium text-right text-gray-700">
             تاريخ الميلاد
           </label>
@@ -269,20 +306,35 @@ function FirstStage(props: any) {
             onChange={(e) => setDateOfBirth(e.target.value)}
             error={dateOfBirth === ""}
           />
-          <select
-            value={gender}
-            onChange={(e) => setGender(Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            {genderOptions}
-          </select>
-          <select
-            value={isShamas}
-            onChange={(e) => setIsShamas(Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-          >
-            {ShamasOptions}
-          </select>
+          <>
+            <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+              اختر النوع
+            </label>
+            <select
+              value={gender}
+              onChange={handleGenderChange}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              {genderOptions}
+            </select>
+          </>
+          {canBeShamas && (
+            <>
+              <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+                هل أنت شماس؟
+              </label>
+              <select
+                value={isShamas}
+                onChange={(e) => setIsShamas(Number(e.target.value))}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              >
+                {ShamasOptions}
+              </select>
+            </>
+          )}
+          <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+            اختر المرحلة الدراسية
+          </label>
           <select
             value={mar7ala}
             onChange={handleChangeMar7ala}
@@ -290,6 +342,9 @@ function FirstStage(props: any) {
           >
             {mara7elOptions}
           </select>
+          <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+            اختر السنة الدراسية
+          </label>
           <select
             value={sana}
             onChange={(e) => setSana(Number(e.target.value))}
@@ -297,6 +352,9 @@ function FirstStage(props: any) {
           >
             {sneenOptions}
           </select>
+          <label className="block mb-4 text-sm font-medium text-right text-gray-700">
+            قم بادخال الرقم القومي
+          </label>
           <TextField
             id="outlined-basic"
             label="الرقم القومي"
@@ -312,7 +370,10 @@ function FirstStage(props: any) {
             error={nationalId === "" || !validateNationalID(nationalId)}
           />
           <label className="block text-sm font-medium text-right text-gray-700">
-            صورة الرقم القومي
+            قم برفع صورة الرقم القومي
+          </label>
+          <label className="block text-sm font-medium text-right text-gray-700">
+            (شهادة الميلاد أو البطاقة)
           </label>
           <TextField
             type="file"
@@ -320,7 +381,7 @@ function FirstStage(props: any) {
             onChange={handleNationalImageChange}
           />
           <label className="block text-sm font-medium text-right text-gray-700">
-            الصورة الشخصية
+            قم برفع صورة شخصية
           </label>
           <TextField
             type="file"

@@ -31,20 +31,24 @@ const Home: NextPage = (props: any) => {
 
   // todo: this is the method for logging in the old user
   const handleOldLogin = async () => {
-    const response = await loginUser(oldUserCode, oldUserPassword);
-    if (response.status) {
-      console.log(response);
-      setSignUpFlowOld(true);
-      setOldUser(false);
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        text: "برجاء ادخال البيانات بشكل صحيح",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setSignUpFlowOld(false);
+    try {
+      const response = await loginUser(oldUserCode, oldUserPassword);
+      if (response.status) {
+        console.log(response);
+        setSignUpFlowOld(true);
+        setOldUser(false);
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          text: "برجاء ادخال البيانات بشكل صحيح",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setSignUpFlowOld(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (

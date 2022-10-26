@@ -14,7 +14,7 @@ function SecondStage(props: any) {
   const [thirdStage, setThirdStage] = useState(false);
   const [rotba, setRotba] = useState(props.rotab[0].id);
   const [oskof, setOskof] = useState(props.asakfa[0].id);
-  const [resamaYear, setResamaYear] = useState(convertDate(new Date()));
+  const [resamaYear, setResamaYear] = useState(0);
   const [resamaChurch, setResamaChurch] = useState(props.churches[0].id);
   const handleSecondStage = () => {
     if (rotba && oskof && resamaYear && resamaChurch) {
@@ -22,23 +22,33 @@ function SecondStage(props: any) {
       user.ShammasData = {
         studentRotbaShamasyalId: rotba,
         oskofElResamaId: oskof,
-        resamaYear: new Date(resamaYear).getFullYear(),
+        resamaYear: resamaYear,
         studentResamaChuruchId: resamaChurch,
       };
     } else {
       alert("برجاء ادخال جميع البيانات");
     }
   };
+  const startYear = 1950;
+  const endYear = new Date().getFullYear();
+  let i = 0;
+  const years = [];
+  for (i = startYear; i <= endYear; i++) {
+    years.push({
+      name: i,
+      value: i,
+    });
+  }
   return (
     <div className="flex flex-col justify-center space-y-10 align-middle">
       {!thirdStage && (
         <>
-          <h1 className="text-2xl">برجاء ادخال بيانات الشماس</h1>
-          <div className="flex flex-row space-x-8">
+          <h1 className="text-2xl text-center">برجاء ادخال بيانات اخر رسامة</h1>
+          <div className="flex flex-row space-x-8 text-right ">
             <select
               value={rotba}
               onChange={(e) => setRotba(Number(e.target.value))}
-              className="w-1/2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               {allRotab.map((rotab: any) => (
                 <option key={rotab.id} value={rotab.id}>
@@ -46,13 +56,15 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>رتبة الشماس</label>
+            <label className="flex flex-col justify-center w-1/2">
+              رتبة الشماس
+            </label>
           </div>
-          <div className="flex flex-row space-x-8">
+          <div className="flex flex-row space-x-8 text-right ">
             <select
               value={oskof}
               onChange={(e) => setOskof(Number(e.target.value))}
-              className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               {allAsakfa.map((asakfa: any) => (
                 <option key={asakfa.id} value={asakfa.id}>
@@ -60,23 +72,33 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>اسم أسقف الرسامة</label>
+            <label className="flex flex-col justify-center w-1/2">
+              اسم الأسقف القائم بالرسامة
+            </label>
           </div>
-          <div className="flex flex-row space-x-8">
-            <TextField
-              className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              type="date"
-              value={resamaYear.toString()}
-              onChange={(e) => setResamaYear(e.target.value)}
-              error={resamaYear === ""}
-            />
-            <label>سنة الرسامة</label>
+          <div className="flex flex-row space-x-8 text-right ">
+            <select
+              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="resamaYears"
+              id=""
+              value={resamaYear}
+              onChange={(e) => setResamaYear(Number(e.target.value))}
+            >
+              {years.map((year: any) => (
+                <option key={year.value} value={year.value}>
+                  {year.name}
+                </option>
+              ))}
+            </select>
+            <label className="flex flex-col justify-center w-1/2">
+              سنة الرسامة
+            </label>
           </div>
-          <div className="flex flex-row space-x-8">
+          <div className="flex flex-row space-x-8 text-right ">
             <select
               value={resamaChurch}
               onChange={(e) => setResamaChurch(Number(e.target.value))}
-              className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="w-full text-right border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               {allChurch.map((church: any) => (
                 <option key={church.id} value={church.id}>
@@ -84,7 +106,9 @@ function SecondStage(props: any) {
                 </option>
               ))}
             </select>
-            <label>اسم الكنيسة</label>
+            <label className="flex flex-col justify-center w-1/2">
+              اسم كنيسة الرسامة
+            </label>
           </div>
           <button
             onClick={handleSecondStage}
