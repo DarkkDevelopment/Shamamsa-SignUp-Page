@@ -132,7 +132,7 @@ const Home: NextPage = (props: any) => {
         </div>
       )}
       {signUpFlowOld && (
-        <div className="flex flex-col items-center justify-center m-32 space-y-10">
+        <div className="flex flex-col items-center justify-center p-2 space-y-10">
           <FirstStage
             code={oldUserCode}
             rotab={allRotab}
