@@ -39,6 +39,16 @@ export const MobileStage = (props: any) => {
   const handleChange = (newValue: string) => {
     setOtp(newValue);
   };
+  let appVerifier: RecaptchaVerifier;
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    appVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {
+      },
+      auth
+    );
+  }, [auth])
 
   const onSignInSubmit = () => {
     if (!phoneNumber) {
@@ -50,17 +60,7 @@ export const MobileStage = (props: any) => {
     }
     let number = `+2${phoneNumber}`;
     // const appVerifier = window.recaptchaVerifier;
-    let appVerifier = new RecaptchaVerifier(
-      "sign-in-button",
-      {
-        size: "invisible",
-        callback: (response: any) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit();
-        },
-      },
-      auth
-    );
+
     signInWithPhoneNumber(auth, number, appVerifier)
       .then((confirmationResult: any) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
@@ -103,6 +103,7 @@ export const MobileStage = (props: any) => {
               value={phoneNumber}
               error={phoneNumber.length < 10}
             />
+            <div id="recaptcha-container"></div>
             <Button
               variant="contained"
               id="sign-in-button"
@@ -130,7 +131,7 @@ export const MobileStage = (props: any) => {
                 },
               }}
             />
-            <div id="recaptcha-container"></div>
+
 
             <Button
               variant="contained"

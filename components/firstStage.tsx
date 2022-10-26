@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { SignUpModel } from "../models/signUpModel";
 import { getsneen } from "../services/lookups";
+import { validateNationalId } from "../services/validateNationalId";
 import convertDate from "../utils/convertDate";
 import validateTextArabic from "../utils/vaildateArabic";
 import { validateNationalID } from "../utils/validateNationalID";
@@ -135,25 +136,32 @@ function FirstStage(props: any) {
       sana !== 0 &&
       gender !== 0
     ) {
-      setNewUser({
-        ...newUser,
-        fixedData: {
-          ...newUser.fixedData,
-          firstName: firstName,
-          secondName: secondName,
-          thirdName: thirdName,
-          fourthName: fourthName,
-          nationalId: nationalId,
-          dob: new Date(dateOfBirth),
-          gender: gender,
-        },
-        learningAndStatus: {
-          ...newUser.learningAndStatus,
-          mar7la: mar7ala,
-          sana: sana,
-        },
-      });
-      setSecondStage(true);
+      let response = await validateNationalId(nationalId);
+      // console.log(response.data);
+      if (response.status) {
+        setNewUser({
+          ...newUser,
+          fixedData: {
+            ...newUser.fixedData,
+            firstName: firstName,
+            secondName: secondName,
+            thirdName: thirdName,
+            fourthName: fourthName,
+            nationalId: nationalId,
+            dob: new Date(dateOfBirth),
+            gender: gender,
+          },
+          learningAndStatus: {
+            ...newUser.learningAndStatus,
+            mar7la: mar7ala,
+            sana: sana,
+          },
+        });
+        setSecondStage(true);
+      }
+      else {
+        alert(response.message);
+      }
     } else {
       alert("الرجاء التأكد من ادخال البيانات بشكل صحيح");
     }
