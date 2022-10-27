@@ -16,6 +16,8 @@ export const EmailStage = (props: any) => {
   const [email, setEmail] = useState("");
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [masterCodeField, setMasterCodeField] = useState(false);
+  const [backupCode, setBackupCode] = useState("");
   const ourUser: SignUpModel = props.user;
   let countDownInterval: NodeJS.Timer;
   const [time, setTime] = useState(0);
@@ -47,8 +49,10 @@ export const EmailStage = (props: any) => {
     try {
       const res = await signUp(ourUser, photos);
       if (res.status == true) {
+        setMasterCodeField(false);
         setLastStage(true);
       } else if (res.status == false) {
+        setLoading(false);
         Swal.fire({
           position: "center",
           icon: "error",
@@ -94,9 +98,36 @@ export const EmailStage = (props: any) => {
       window.location.reload();
     }
   };
+
+  const handleVerifyBackupCode = async () => {
+    try {
+      if (backupCode == "control123*") {
+        setLoading(true);
+        ourUser.email = email;
+        handleSignUpRequest();
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          text: "رمز التحقق غير صحيح",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "رمز التحقق غير صحيح",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
   return (
     <div>
-      {!lastStage && (
+      {!lastStage && !masterCodeField && (
         <>
           <div className="flex flex-col items-center justify-between">
             <h1 className="mb-8 text-2xl font-bold text-center">
@@ -133,6 +164,7 @@ export const EmailStage = (props: any) => {
               </>
             )}
           </div>
+
           <div className="flex flex-col items-center justify-between">
             <label className="mb-5 text-sm text-center text-gray-500">
               قم بادخال رمز التحقق الذي تم استلامه{" "}
@@ -155,11 +187,12 @@ export const EmailStage = (props: any) => {
               }}
             />
           </div>
-
           <div id="recaptcha-container"></div>
           {loading ? (
-            <div className="flex my-4 align-middle">
-              <h2>برجاء الانتظار جاري ارسال البيانات</h2>
+            <div className="flex flex-col my-4 align-middle">
+              <h2 className="text-center text-gray-500">
+                برجاء الانتظار جاري ارسال البيانات
+              </h2>
               <CircularProgress />
             </div>
           ) : (
@@ -177,11 +210,59 @@ export const EmailStage = (props: any) => {
               </Button>
             </div>
           )}
+          <div className="flex flex-col items-center  mt-8">
+            <label className="mb-4 text-xl font-semibold text-center text-gray-500">
+              لم يصلك الكود ؟
+            </label>
+            <Button
+              onClick={() => {
+                setMasterCodeField(true);
+              }}
+              variant="contained"
+              sx={{
+                marginBottom: "2rem",
+              }}
+            >
+              اضغط هنا
+            </Button>
+          </div>
         </>
       )}
       {lastStage && (
         <div className="flex flex-col items-center justify-center mt-16 align-middle">
           <LastStage />
+        </div>
+      )}
+      {masterCodeField && (
+        <div className="flex flex-col items-center justify-center mt-32 align-middle ">
+          <label className="mb-8 text-sm font-semibold text-center text-gray-500">
+            قم بادخال رمز التحقق الذي تم ارساله اليك
+          </label>
+          <TextField
+            id="outlined-basic"
+            value={backupCode}
+            onChange={(e) => setBackupCode(e.target.value)}
+            label="ادخل الكود"
+            error={backupCode === ""}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              marginBottom: "2rem",
+              marginTop: "1.5rem",
+            }}
+            onClick={handleVerifyBackupCode}
+          >
+            تأكيد
+          </Button>
+          {loading && (
+            <div className="flex flex-col my-4 align-middle">
+              <h2 className="text-center text-gray-500">
+                برجاء الانتظار جاري ارسال البيانات
+              </h2>
+              <CircularProgress />
+            </div>
+          )}
         </div>
       )}
     </div>

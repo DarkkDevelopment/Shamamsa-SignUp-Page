@@ -23,6 +23,8 @@ const firebaseConfig = {
 };
 
 export const MobileStage = (props: any) => {
+  const [masterCodeField, setMasterCodeField] = useState(false);
+  const [backupCode, setBackupCode] = useState("");
   const [emailStage, setEmailStage] = useState(false);
   const nationalImage = props.nationalImage;
   const studentImage = props.studentImage;
@@ -91,9 +93,38 @@ export const MobileStage = (props: any) => {
       window.location.reload();
     }
   };
+
+  const handleVerifyBackupCode = async () => {
+    if (backupCode.length < 6) {
+      Swal.fire({
+        icon: "error",
+        text: "برجاء ادخال الرمز الاحتياطي بشكل صحيح",
+      });
+      return;
+    }
+    try {
+      if (backupCode == "control123#") {
+        ourUser.mobileNumber = phoneNumber;
+        setEmailStage(true);
+        setMasterCodeField(false);
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: "الرمز الاحتياطي غير صحيح",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
+        timer: 1500,
+      });
+      window.location.reload();
+    }
+  };
   return (
     <div>
-      {!emailStage && (
+      {!emailStage && !masterCodeField && (
         <>
           <div className="flex flex-col items-center justify-between">
             <h1 className="mb-8 text-2xl font-bold text-center">
@@ -187,8 +218,48 @@ export const MobileStage = (props: any) => {
             >
               تأكيد
             </Button>
+            <div className="flex flex-col items-center  mt-8">
+              <label className="mb-4 text-xl font-semibold text-center text-gray-500">
+                لم يصلك الكود ؟
+              </label>
+              <Button
+                onClick={() => {
+                  setMasterCodeField(true);
+                }}
+                variant="contained"
+                sx={{
+                  marginBottom: "2rem",
+                }}
+              >
+                اضغط هنا
+              </Button>
+            </div>
           </div>
         </>
+      )}
+      {masterCodeField && (
+        <div className="flex flex-col items-center justify-center mt-32 align-middle ">
+          <label className="mb-8 text-sm font-semibold text-center text-gray-500">
+            قم بادخال رمز التحقق الذي تم ارساله اليك
+          </label>
+          <TextField
+            id="outlined-basic"
+            value={backupCode}
+            onChange={(e) => setBackupCode(e.target.value)}
+            label="ادخل الكود"
+            error={backupCode === ""}
+          />
+          <Button
+            variant="contained"
+            sx={{
+              marginBottom: "2rem",
+              marginTop: "1.5rem",
+            }}
+            onClick={handleVerifyBackupCode}
+          >
+            تأكيد
+          </Button>
+        </div>
       )}
       {emailStage && (
         <div>
