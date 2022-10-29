@@ -70,6 +70,7 @@ export const MobileStage = (props: any) => {
             title:
               "تم ارسال رمز تحقق مكون من 6 أرقام علي الرقم الذي قمت بادخاله بنجاح",
             showConfirmButton: false,
+            timer: 1000,
           });
           // ...
         })
@@ -80,14 +81,14 @@ export const MobileStage = (props: any) => {
           Swal.fire({
             icon: "error",
             text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
-            timer: 1500,
+            timer: 1000,
           });
         });
     } else {
       Swal.fire({
         icon: "error",
         text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
-        timer: 1500,
+        timer: 1000,
       });
     }
   };
@@ -115,7 +116,7 @@ export const MobileStage = (props: any) => {
       Swal.fire({
         icon: "error",
         text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
-        timer: 1500,
+        timer: 1000,
       });
     }
   };

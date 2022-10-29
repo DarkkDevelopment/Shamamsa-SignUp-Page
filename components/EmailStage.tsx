@@ -40,7 +40,7 @@ export const EmailStage = (props: any) => {
         icon: "success",
         text: "تم ارسال رمز التحقق الى بريدك الالكتروني",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }
   };
@@ -60,6 +60,7 @@ export const EmailStage = (props: any) => {
           showConfirmButton: false,
           timer: 1000,
         });
+        window.location.reload();
       }
     } catch (error) {
       Swal.fire({
@@ -88,7 +89,7 @@ export const EmailStage = (props: any) => {
           icon: "error",
           text: "رمز التحقق غير صحيح",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
       }
     } catch (error) {
@@ -97,7 +98,7 @@ export const EmailStage = (props: any) => {
         icon: "error",
         text: "رمز التحقق غير صحيح",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }
   };
@@ -114,7 +115,7 @@ export const EmailStage = (props: any) => {
           icon: "error",
           text: "رمز التحقق غير صحيح",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
       }
     } catch (error) {
@@ -123,7 +124,7 @@ export const EmailStage = (props: any) => {
         icon: "error",
         text: "رمز التحقق غير صحيح",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
     }
   };
