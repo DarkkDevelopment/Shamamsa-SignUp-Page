@@ -388,7 +388,13 @@ function FirstStage(props: any) {
           <label className="text-sm font-medium text-right text-gray-700 ">
             (شهادة الميلاد أو البطاقة)
           </label>
-          <TextField
+          {/* <TextField
+            type="file"
+            value={nationalIdImage ? nationalIdImage.name : ""}
+            onChange={handleNationalImageChange}
+          /> */}
+            <input
+            accept="image/*"
             type="file"
             value={nationalIdImage ? nationalIdImage.name : ""}
             onChange={handleNationalImageChange}
@@ -396,7 +402,14 @@ function FirstStage(props: any) {
           <label className="text-sm font-medium text-right text-gray-700 ">
             قم برفع صورة شخصية
           </label>
-          <TextField
+          {/* <TextField
+            type="file"
+            
+            value={studentImage ? studentImage.name : ""}
+            onChange={handleStudentImageChange}
+          /> */}
+          <input
+            accept="image/*"
             type="file"
             value={studentImage ? studentImage.name : ""}
             onChange={handleStudentImageChange}

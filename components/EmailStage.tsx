@@ -220,7 +220,18 @@ export const EmailStage = (props: any) => {
             </label>
             <Button
               onClick={() => {
-                setMasterCodeField(true);
+                if (email)
+                  setMasterCodeField(true);
+                else
+                {
+                  Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    text: "برجاء ادخال البريد الالكتروني",
+                    showConfirmButton: false,
+                    timer: 1000,
+                  });
+                }
               }}
               variant="contained"
               sx={{

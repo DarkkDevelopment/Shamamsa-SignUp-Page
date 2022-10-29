@@ -222,7 +222,13 @@ export const MobileStage = (props: any) => {
               </label>
               <Button
                 onClick={() => {
-                  setMasterCodeField(true);
+                  if (phoneNumber)
+                    setMasterCodeField(true);
+                  else
+                    Swal.fire({
+                      icon: "error",
+                      text: "برجاء ادخال رقم الموبايل اولا",
+                    })
                 }}
                 variant="contained"
                 sx={{
