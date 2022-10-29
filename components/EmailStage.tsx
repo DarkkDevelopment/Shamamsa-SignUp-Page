@@ -58,12 +58,17 @@ export const EmailStage = (props: any) => {
           icon: "error",
           text: res.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
-        window.location.reload();
       }
     } catch (error) {
-      // console.log(error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "حدث خطأ ما",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
@@ -85,7 +90,6 @@ export const EmailStage = (props: any) => {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload();
       }
     } catch (error) {
       Swal.fire({
@@ -95,13 +99,12 @@ export const EmailStage = (props: any) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      window.location.reload();
     }
   };
 
   const handleVerifyBackupCode = async () => {
     try {
-      if (backupCode == "control123*") {
+      if (backupCode == "shamamsa789*") {
         setLoading(true);
         ourUser.email = email;
         handleSignUpRequest();
@@ -210,7 +213,7 @@ export const EmailStage = (props: any) => {
               </Button>
             </div>
           )}
-          <div className="flex flex-col items-center  mt-8">
+          <div className="flex flex-col items-center mt-8">
             <label className="mb-4 text-xl font-semibold text-center text-gray-500">
               لم يصلك الكود ؟
             </label>

@@ -9,7 +9,7 @@ import { validateNationalID } from "../utils/validateNationalID";
 import SecondStage from "./secondStage";
 import ThirdStage from "./thirdStage";
 import Swal from "sweetalert2";
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 
 function FirstStage(props: any) {
   const [newUser, setNewUser] = useState<SignUpModel>({
@@ -179,20 +179,26 @@ function FirstStage(props: any) {
   const compressionOptions = {
     maxSizeMB: 1,
     maxWidthOrHeight: 1920,
-    useWebWorker: true
-  }
+    useWebWorker: true,
+  };
   const handleNationalImageChange = async (e: any) => {
     setNationalIdImage(e.target.files[0].name);
-    const compressedFile = await imageCompression(e.target.files[0], compressionOptions);
+    const compressedFile = await imageCompression(
+      e.target.files[0],
+      compressionOptions
+    );
     // console.log(compressedFile.size / 1024 / 1024);
     setOurFormData((prev) => {
-      prev.append("nationalIdImage",compressedFile);
+      prev.append("nationalIdImage", compressedFile);
       return prev;
     });
   };
   const handleStudentImageChange = async (e: any) => {
     setStudentImage(e.target.files[0].name);
-    const compressedFile = await imageCompression(e.target.files[0], compressionOptions);
+    const compressedFile = await imageCompression(
+      e.target.files[0],
+      compressionOptions
+    );
     setOurFormData((prev) => {
       prev.append("profileImage", compressedFile);
       return prev;
@@ -202,7 +208,7 @@ function FirstStage(props: any) {
   const handleGenderChange = (e: any) => {
     setGender(Number(e.target.value));
     console.log(Number(e.target.value));
-    if (gender == 1) {
+    if (gender === 1) {
       setCanBeShamas(false);
     } else {
       setCanBeShamas(true);
@@ -360,7 +366,7 @@ function FirstStage(props: any) {
             {sneenOptions}
           </select>
           <label className="mb-4 text-sm font-medium text-right text-gray-700 ">
-            قم بادخال الرقم القومي
+            قم بادخال الرقم القومي بالارقام الانجليزية
           </label>
           <TextField
             id="outlined-basic"

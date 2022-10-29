@@ -82,7 +82,6 @@ export const MobileStage = (props: any) => {
             text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
             timer: 1500,
           });
-          window.location.reload();
         });
     } else {
       Swal.fire({
@@ -90,7 +89,6 @@ export const MobileStage = (props: any) => {
         text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
         timer: 1500,
       });
-      window.location.reload();
     }
   };
 
@@ -103,7 +101,7 @@ export const MobileStage = (props: any) => {
       return;
     }
     try {
-      if (backupCode == "control123#") {
+      if (backupCode == "shamamsa456#") {
         ourUser.mobileNumber = phoneNumber;
         setEmailStage(true);
         setMasterCodeField(false);
@@ -119,7 +117,6 @@ export const MobileStage = (props: any) => {
         text: "حدث خطأ ما اثناء ارسال رمز التحقق برجاء المحاوله مره اخري بعد قليل",
         timer: 1500,
       });
-      window.location.reload();
     }
   };
   return (
@@ -218,7 +215,7 @@ export const MobileStage = (props: any) => {
             >
               تأكيد
             </Button>
-            <div className="flex flex-col items-center  mt-8">
+            <div className="flex flex-col items-center mt-8">
               <label className="mb-4 text-xl font-semibold text-center text-gray-500">
                 لم يصلك الكود ؟
               </label>

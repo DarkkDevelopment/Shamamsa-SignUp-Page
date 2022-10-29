@@ -3,6 +3,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import { SignUpModel } from "../models/signUpModel";
 import { getCitiesByCountryId, getManateqByCityId } from "../services/lookups";
+import validateTextArabic from "../utils/vaildateArabic";
 import FourthStage from "./fourthStage";
 
 function ThirdStage(props: any) {
@@ -115,7 +116,7 @@ function ThirdStage(props: any) {
             error={building === 0}
           />
           <label className="block mb-2 text-sm font-medium text-right text-gray-700 ">
-            اسم الشارع
+            اسم الشارع باللغة العربية
           </label>
           <TextField
             style={{
@@ -128,7 +129,7 @@ function ThirdStage(props: any) {
             fullWidth
             value={street}
             onChange={(e) => setStreet(e.target.value)}
-            error={street === ""}
+            error={street === "" || !validateTextArabic(street)}
           />
           <div className="flex flex-col space-y-4">
             <label>البلد</label>
