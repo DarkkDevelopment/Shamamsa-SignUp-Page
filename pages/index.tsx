@@ -67,12 +67,12 @@ const Home: NextPage = (props: any) => {
     <div
       className="flex justify-center"
     >
-      <p className="text-3xl font-bold text-center ">
+{/*       <p className="text-3xl font-bold text-center ">
       نعتذر
 تم إغلاق التسجيل لنتمكن من توزيع الكورسات
 إذا لم تسطتع التسجيل، فبرجاء الحضور لكنترول المدرسة الجمعة القادمة ٤ نوفمبر الساعة ١٠ص
-      </p>
-{/*       {!selectOption && (
+      </p> */}
+      {!selectOption && (
         <div className="flex flex-col items-center justify-center p-16 m-auto ">
           <Image
             style={{
@@ -150,7 +150,7 @@ const Home: NextPage = (props: any) => {
             old={true}
           />
         </div>
-      )} */}
+      )}
     </div>
   );
 };
