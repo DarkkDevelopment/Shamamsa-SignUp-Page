@@ -14,7 +14,7 @@ import imageCompression from "browser-image-compression";
 function FirstStage(props: any) {
   const [newUser, setNewUser] = useState<SignUpModel>({
     code: Number(props.code),
-    status: "OLD",
+    status: props.old? "OLD": "NEW",
     mobileNumber: "",
     email: "",
     fixedData: {

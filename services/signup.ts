@@ -22,7 +22,7 @@ const signUp = async (user: SignUpModel, data: FormData) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        url: `/api/auth/uploadNationalId/${user.code}`,
+        url: `/api/auth/uploadNationalId/${response.data.data.code}`,
         data: {
           nationalIdImage: data.get("nationalIdImage"),
           profileImage: data.get("profileImage"),
