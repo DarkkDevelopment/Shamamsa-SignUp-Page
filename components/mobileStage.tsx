@@ -149,21 +149,32 @@ export const MobileStage = (props: any) => {
               }
             />
             <div id="recaptcha-container" className="my-4"></div>
-
-            {!clicked && (
-              <>
-                <Button
-                  variant="contained"
-                  id="sign-in-button"
-                  onClick={onSignInSubmit}
-                  sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
-                >
-                  ارسال رمز التحقق
-                </Button>
-              </>
-            )}
+            <>
+              <Button
+                variant="contained"
+                id="sign-in-button"
+                // onClick={onSignInSubmit}
+                onClick={() => {
+                  if (phoneNumber) {
+                    ourUser.mobileNumber = phoneNumber;
+                    setEmailStage(true);
+                    setMasterCodeField(false);
+                  }
+                  else
+                    Swal.fire({
+                      icon: "error",
+                      text: "برجاء ادخال رقم الموبايل اولا",
+                    })
+                }}
+                sx={{ marginBottom: "1rem", borderRadius: "0.5rem" }}
+              >
+                التالي
+              </Button>
+            </>
+            {/* {!clicked && (
+            )} */}
           </div>
-          <div className="flex flex-col items-center justify-between mt-8">
+          {/* <div className="flex flex-col items-center justify-between mt-8">
             <label className="mb-5 text-sm text-gray-500">
               قم بادخال رمز التحقق الذي تم استلامه{" "}
             </label>
@@ -238,10 +249,11 @@ export const MobileStage = (props: any) => {
                 اضغط هنا
               </Button>
             </div>
-          </div>
+          </div> */}
         </>
-      )}
-      {masterCodeField && (
+      )
+      }
+      {/* {masterCodeField && (
         <div className="flex flex-col items-center justify-center mt-32 align-middle ">
           <label className="mb-8 text-sm font-semibold text-center text-gray-500">
             قم بادخال رمز التحقق الذي تم ارساله اليك
@@ -264,17 +276,19 @@ export const MobileStage = (props: any) => {
             تأكيد
           </Button>
         </div>
-      )}
-      {emailStage && (
-        <div>
-          <EmailStage
-            nationalImage={nationalImage}
-            studentImage={studentImage}
-            user={ourUser}
-            photos={photos}
-          />
-        </div>
-      )}
-    </div>
+      )} */}
+      {
+        emailStage && (
+          <div>
+            <EmailStage
+              nationalImage={nationalImage}
+              studentImage={studentImage}
+              user={ourUser}
+              photos={photos}
+            />
+          </div>
+        )
+      }
+    </div >
   );
 };

@@ -46,7 +46,18 @@ export const EmailStage = (props: any) => {
   };
 
   const handleSignUpRequest = async () => {
+    if (!email) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        text: "برجاء ادخال بريدك الالكتروني",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      return;
+    }
     try {
+      ourUser.email = email;
       const res = await signUp(ourUser, photos);
       if (res.status == true) {
         setMasterCodeField(false);
@@ -152,7 +163,7 @@ export const EmailStage = (props: any) => {
               value={email}
               error={email === ""}
             />
-            {!clicked && (
+            {/* {!clicked && (
               <>
                 <Button
                   variant="contained"
@@ -166,10 +177,10 @@ export const EmailStage = (props: any) => {
                   ارسال
                 </Button>
               </>
-            )}
+            )} */}
           </div>
 
-          <div className="flex flex-col items-center justify-between">
+          {/* <div className="flex flex-col items-center justify-between">
             <label className="mb-5 text-sm text-center text-gray-500">
               قم بادخال رمز التحقق الذي تم استلامه{" "}
             </label>
@@ -190,7 +201,7 @@ export const EmailStage = (props: any) => {
                 },
               }}
             />
-          </div>
+          </div> */}
           <div id="recaptcha-container"></div>
           {loading ? (
             <div className="flex flex-col my-4 align-middle">
@@ -208,13 +219,13 @@ export const EmailStage = (props: any) => {
                   justifyContent: "center",
                   marginTop: "1.5rem",
                 }}
-                onClick={handleVerifyOTP}
+                onClick={handleSignUpRequest}
               >
-                تأكيد
+                التالي
               </Button>
             </div>
           )}
-          <div className="flex flex-col items-center mt-8">
+          {/* <div className="flex flex-col items-center mt-8">
             <label className="mb-4 text-xl font-semibold text-center text-gray-500">
               لم يصلك الكود ؟
             </label>
@@ -240,7 +251,7 @@ export const EmailStage = (props: any) => {
             >
               اضغط هنا
             </Button>
-          </div>
+          </div> */}
         </>
       )}
       {lastStage && (
@@ -248,7 +259,7 @@ export const EmailStage = (props: any) => {
           <LastStage />
         </div>
       )}
-      {masterCodeField && (
+      {/* {masterCodeField && (
         <div className="flex flex-col items-center justify-center mt-32 align-middle ">
           <label className="mb-8 text-sm font-semibold text-center text-gray-500">
             قم بادخال رمز التحقق الذي تم ارساله اليك
@@ -279,7 +290,7 @@ export const EmailStage = (props: any) => {
             </div>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
