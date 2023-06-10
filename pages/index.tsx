@@ -67,11 +67,21 @@ const Home: NextPage = (props: any) => {
     <div
       className="flex justify-center"
     >
-      {/*       <p className="text-3xl font-bold text-center ">
+      <div
+      className="flex flex-col items-center justify-center p-16 m-auto space-y-8 "
+      >
+      <img 
+      src="/logo-deacon.jpg"
+      alt="Logo"
+      width={200}
+      height={200}
+      />
+            <p className="text-3xl font-bold text-center ">
       نعتذر
 تم إغلاق التسجيل لنتمكن من توزيع الكورسات
-إذا لم تسطتع التسجيل، فبرجاء الحضور لكنترول المدرسة الجمعة القادمة ٤ نوفمبر الساعة ١٠ص
-      </p> */}
+ إذا لم تستطع التسجيل، فبرجاء متابعتنا علي صفحة الفيسبوك لمعرفه ميعاد التقديم الترم القادم
+</p>
+      </div>
       {/* {!selectOption && (
         <div className="flex flex-col items-center justify-center p-16 m-auto ">
           <Image
@@ -93,7 +103,7 @@ const Home: NextPage = (props: any) => {
           </button>
         </div>
       )} */}
-      {!selectOption && (
+      {/* {!selectOption && (
         <div className="flex flex-col items-center justify-center p-16 m-auto space-y-8 ">
           <h1> 
             هل انت مسجل من قبل ؟
@@ -185,7 +195,7 @@ const Home: NextPage = (props: any) => {
             old={isOldUser}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
